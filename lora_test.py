@@ -62,6 +62,8 @@ class MQTT():
 
     # 定义回调函数，当从服务器收到 PUBLISH 消息时的回调
     def on_message(self,client, userdata, msg):
+        data = []
+        end = [0X0D, 0X0A]
         self.APP_data = msg.payload.decode('UTF-8')[0:-2]
         device = self.APP_data[0]
         if int(self.APP_data[1:3]) < 13:
@@ -70,8 +72,31 @@ class MQTT():
                 self.APP_data = device + '31' + target_label        #前进
             else:
                 self.APP_data = device + '30' + target_label        #后退
-        MsgToLora_Q.put(self.APP_data)
-        print(f"Received message from topic '{msg.topic}': {msg.payload.decode()[0:-2]}")
+        if self.lora_service.Serial_port.isOpen():
+                    if device == 'A':
+                        addr = Car_A
+                    elif device == 'B':
+                        addr = Car_B
+                    elif device == 'C':
+                        addr = CT_A
+                    for i in range(len(self.APP_data)-1):
+                        data.append(int(self.APP_data[i+1],base=16)+48)
+                    msg = addr + data + end
+                    try:
+                        self.lora_service.Serial_port.write(msg)
+                        current_time = datetime.now()
+                        formatted_time = current_time.strftime('%H:%M:%S.%f')  # %f 表示微秒（6 位）
+                        formatted_time = formatted_time[:-3]  # 截取前 3 位，得到毫秒
+                        print(f'Msg send to Lora:{self.APP_data}(time:{formatted_time})')
+                        
+                        data.clear()
+                    except Exception as e:
+                            print(e)   
+        else:
+            print("串口未打开")
+        
+        # MsgToLora_Q.put(self.APP_data)
+        # print(f"Received message from topic '{msg.topic}': {msg.payload.decode()[0:-2]}")
     # 定义回调函数，当客户端发布消息成功时的回调
     def on_publish(self,client, userdata, mid):
         current_time = datetime.now()
@@ -108,11 +133,32 @@ class LORA():
         self.Bps = 115200
         self.timeout = 0.5
         self.connectflag = False
-        self.status = 'disconnect'
-        self.t1flag = False
-        self.t2flag = False                
+        self.status = 'disconnect'               
         self.exit_event = threading.Event()
         self.mqtt_service = mqtt_service 
+    
+    #接收lora数据    
+    def recv_serial_info(self, handle):
+        if handle.isOpen():
+            try:
+                rsv_data = handle.readline()
+                if rsv_data != b'':
+                    if rsv_data[:3] == bytes(Car_A):        #判断数据来自哪个车
+                        current_time = datetime.now()
+                        formatted_time = current_time.strftime('%H:%M:%S.%f')  # %f 表示微秒（6 位）
+                        formatted_time = formatted_time[:-3]  # 截取前 3 位，得到毫秒
+                        print(f'Recv from Lora A::{rsv_data[3:]}(time:{formatted_time})')
+                        rsv_data = rsv_data[3:].decode('UTF-8')[:-2]
+                        current_label = rsv_data[5:7]
+                        self.mqtt_service.client.publish(self.mqtt_service.PUB_TOPIC, rsv_data)
+                        #MsgToApp_Q.put(rsv_data)          # 将接收到的数据放入共享队列
+            except Exception as e:
+                print(e)
+        else:
+            self.connectflag = False
+            print("串口未打开")
+       
+        return rsv_data 
     def Start_Lora_Service(self):
         self.Serial_port = serial.Serial(self.Com, self.Bps, timeout = self.timeout)
         if self.Serial_port.isOpen():
@@ -123,39 +169,16 @@ class LORA():
                 self.Serial_port.open()
             except Exception as e:
                 print(e)
-        
-        self.t1flag = True
-        self.t2flag = True
-        t1 = threading.Thread(target = self.recv_serial_info, args=(self.Serial_port,))
-        t2 = threading.Thread(target = self.send_serial_info, args=(self.Serial_port,))
-        t1.start()
-        t2.start()
-    
-    #接收lora数据    
-    def recv_serial_info(self, handle):
-        global MsgToApp_Q
-        global current_label
         while True:
-            if handle.isOpen():
-                try:
-                    rsv_data = handle.readline()
-                    if rsv_data != b'':
-                        if rsv_data[:3] == bytes(Car_A):        #判断数据来自哪个车
-                            current_time = datetime.now()
-                            formatted_time = current_time.strftime('%H:%M:%S.%f')  # %f 表示微秒（6 位）
-                            formatted_time = formatted_time[:-3]  # 截取前 3 位，得到毫秒
-                            print(f'Recv from Lora A::{rsv_data[3:]}(time:{formatted_time})')
-                            rsv_data = rsv_data[3:].decode('UTF-8')[:-2]
-                            current_label = rsv_data[5:7]
-                            self.mqtt_service.client.publish(self.mqtt_service.PUB_TOPIC, rsv_data)
-                            #MsgToApp_Q.put(rsv_data)          # 将接收到的数据放入共享队列
-                except Exception as e:
-                    print(e)
-            else:
-                self.connectflag = False
-                print("串口未打开")
-                break       
-        return rsv_data  
+            self.recv_serial_info(self.Serial_port)
+        
+        #t1 = threading.Thread(target = self.recv_serial_info, args=(self.Serial_port,))
+        #t2 = threading.Thread(target = self.send_serial_info, args=(self.Serial_port,))
+        #t1.start()
+        #t2.start()
+        
+    
+ 
     #发送数据到lora
     def send_serial_info(self, handle):
         data = []
