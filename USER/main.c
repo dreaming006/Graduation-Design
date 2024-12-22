@@ -20,10 +20,10 @@ unsigned char status;				//读卡状态
 
 unsigned char N[50][4]; 			//二维数组存放卡号和对应编号
 
-unsigned int T3=0;					//定时器3计数一次则计时0.01秒，用于求速度
-unsigned int T2=0;					//定时器2计数一次则计时0.01秒，运行时间，用于求运行距离
-unsigned int T4=0;					//定时器4计数一次则计时1秒，用于巡航模式时一次停留的定时
-unsigned int T5=0;					//定时器5计数一次则计时1秒，用于巡航模式时整个工作时间的定时
+unsigned int T3=0;					//定时器3计数满一次则计时0.01秒，用于求速度
+unsigned int T2=0;					//定时器2计数满一次则计时0.01秒，运行时间，用于求运行距离
+unsigned int T4=0;					//定时器4计数满一次则计时1秒，用于巡航模式时一次停留的定时
+unsigned int T5=0;					//定时器5计数满一次则计时1秒，用于巡航模式时整个工作时间的定时
 unsigned int T31=0;
 unsigned int T21=0;
 unsigned int T22=0;
@@ -47,8 +47,7 @@ unsigned char Destination_Label;	//预设模式下的目的标签序号
 unsigned char Origin_Label;
 double RFID_distance=5.0;			//读卡器间距10cm
 double v=0;							//真实速度
-double x=0;
-//当前与前一个标签的距离
+double x=0;							//当前与前一个标签的距离
 double T;
 double t2[50];
 double t3[50];
@@ -64,7 +63,7 @@ unsigned char Addr_Broadcast[2]={0XFF,0XFF};//广播地址
 unsigned char Addr_A[2]={0X02,0XCA};		//接受端LORA地址'd714
 unsigned char Addr_Local[2]={0X0E,0X4E};	//开发板LORA地址'd3662
 unsigned char Addr_Gateway[2]={0X02,0XCA};
-unsigned char Lora_Channel = 0X18;			//广播通道’0x17 == 'd23 
+unsigned char Lora_Channel = 0X17;			//广播通道’0x17 == 'd23 
 //防止与楼下GPS程序的LORA冲突，可以设置为0x18 ==‘d24
 
 /*函数申明*/
@@ -151,7 +150,7 @@ void Save_RFID(void)
 	printf("A9611\r\n");
 	delay_ms(100);
 	printf("%c%c%c",Addr_A[0],Addr_A[1],Lora_Channel);
-	printf("AStart save RFID label to W25Q64\r\n");	
+	Log("AStart save RFID label to W25Q64\r\n");	
 	while(Save_Status==1)
 	{
 		while(RFID_NUM==1)
@@ -169,10 +168,10 @@ void Save_RFID(void)
 				{
 					Save_Status=0;
 					printf("%c%c%c",Addr_A[0],Addr_A[1],Lora_Channel);
-					printf("ASave RFID label number:%d\r\n",Save_Number);
+					//printf("ASave RFID label number:%d\r\n",Save_Number);
 					delay_ms(100);
 					printf("%c%c%c",Addr_A[0],Addr_A[1],Lora_Channel);
-					printf("ASave RFID label over\r\n");
+					Log("ASave RFID label over\r\n");
 					break;
 				}
 			}
@@ -181,7 +180,7 @@ void Save_RFID(void)
 				status=MI_ERR;
 				
 				printf("%c%c%c",Addr_A[0],Addr_A[1],Lora_Channel);
-				printf("AThe label identified by RFID-1 is ");
+				Log("AThe label identified by RFID-1 is ");
 				for(t=0;t<4;t++)
 				{
 					printf("%d ",SN_1[t]);
@@ -205,10 +204,10 @@ void Save_RFID(void)
 				{
 					Save_Status=0;
 					printf("%c%c%c",Addr_A[0],Addr_A[1],Lora_Channel);
-					printf("ASave RFID label number:%d\r\n",Save_Number);
+					//printf("ASave RFID label number:%d\r\n",Save_Number);
 					delay_ms(100);
 					printf("%c%c%c",Addr_A[0],Addr_A[1],Lora_Channel);
-					printf("ASave RFID label over\r\n");
+					Log("ASave RFID label over\r\n");
 					break;
 				}
 			}
@@ -216,7 +215,7 @@ void Save_RFID(void)
 			{
 				status=MI_ERR;
 				printf("%c%c%c",Addr_A[0],Addr_A[1],Lora_Channel);
-				printf("AThe label identified by RFID-2 is ");
+				Log("AThe label identified by RFID-2 is ");
 				for(t=0;t<4;t++)
 				{
 					printf("%d ",SN_2[t]);
@@ -249,7 +248,7 @@ void Save_RFID(void)
 				else
 				{
 					printf("%c%c%c",Addr_A[0],Addr_A[1],Lora_Channel);
-					printf("ASave Error:RFID-1 != RFID-2");
+					Log("ASave Error:RFID-1 != RFID-2");
 				}
 				
 				if(Save_Number>49)
@@ -260,7 +259,7 @@ void Save_RFID(void)
 					printf("ASave RFID label number:%d\r\n",Save_Number);
 					delay_ms(100);
 					printf("%c%c%c",Addr_A[0],Addr_A[1],Lora_Channel);
-					printf("ASave RFID label over\r\n");
+					Log("ASave RFID label over\r\n");
 				}
 				RFID_NUM=1;
 			}	
@@ -278,7 +277,7 @@ void Read_RFID(void)
 	Same_Bit=0;
 	Read_Status=1;
 //	printf("%c%c%c",Addr_A[0],Addr_A[1],Lora_Channel);
-//	printf("AStart read RFID label in W25Q64\r\n");
+	Log("AStart read RFID label in W25Q64\r\n");
 //	delay_ms(200);
 	SPI_Flash_Read(Now_Label,10,2);//读取目前所在位置
 //	printf("%c%c%c",Addr_A[0],Addr_A[1],Lora_Channel);
@@ -354,6 +353,7 @@ void Model_Control(void)
 	label=((Now_Label[0]-48)*10)+(Now_Label[1]-48);
 	printf("%c%c%c",Addr_A[0],Addr_A[1],Lora_Channel);
 	printf("A9911%c%c\r\n",Now_Label[0],Now_Label[1]);
+	//Log("Model Control\r\n");
 	while(Model==1)
 	{
 		Read_IO();
@@ -366,9 +366,10 @@ void Model_Control(void)
 				RX[t]=RX[t]-48;		
 			}
 			USART_RX_STA=0;
-			//printf("RX[0] = %d,RX[1] = %d",RX[0],RX[1]);
-			if(RX[0]==1&&RX[1]==1&&STOP_Status==1)	//前进
+			//Log("COM data received in model_control\r\n");
+			if(RX[0]==3&&RX[1]==1&&STOP_Status==1)	//前进
 			{
+				//Log("Model Control Go\r\n");
 				GPIO_ResetBits(GPIOC,GPIO_Pin_6);	//继电器
 				GPIO_ResetBits(GPIOB,GPIO_Pin_9);	//IO口
 				GPIO_ResetBits(GPIOA,GPIO_Pin_8);
@@ -377,9 +378,9 @@ void Model_Control(void)
 				GPIO_SetBits(GPIOB,GPIO_Pin_9);	
 				GPIO_SetBits(GPIOA,GPIO_Pin_8);
 				Control_GO();
-				//printf("Go finish");
+				Log("Go finish\r\n");
 			}
-			else if(RX[0]==1&&RX[1]==0&&STOP_Status==1)	//后退
+			else if(RX[0]==3&&RX[1]==0&&STOP_Status==1)	//后退
 			{
 				GPIO_ResetBits(GPIOC,GPIO_Pin_7);
 				GPIO_ResetBits(GPIOB,GPIO_Pin_10);
@@ -395,11 +396,13 @@ void Model_Control(void)
 				
 				printf("%c%c%c",Addr_A[0],Addr_A[1],Lora_Channel);
 				printf("A9911%c%c\r\n",Now_Label[0],Now_Label[1]);
+				Log("Upload state: Model Control\r\n");
 			}
 			else if(RX[0]==9&&RX[1]==9&&STOP_Status==1)	//退出控制模式
 			{
 				printf("%c%c%c",Addr_A[0],Addr_A[1],Lora_Channel);
 				printf("A9901%c%c\r\n",Now_Label[0],Now_Label[1]);//退出轨道机控制模式
+				Log("Exit Model Control\r\n");
 				Model=0;
 			}						
 		}		
@@ -416,12 +419,14 @@ void Model_Automatically(void)
 	SPI_Flash_Read(Now_Label,10,2);//读取目前所在位置
 	label=((Now_Label[0]-48)*10)+(Now_Label[1]-48);
 	printf("%c%c%c",Addr_A[0],Addr_A[1],Lora_Channel);
-	printf("A9811%c%c\r\n",Now_Label[0],Now_Label[1]);	
+	printf("A9811%c%c\r\n",Now_Label[0],Now_Label[1]);
+	Log("Automatically start\r\n");	
 	while(Model==2)
 	{
 		Read_IO();
 		if(USART_RX_STA&0x8000)			//接收完成
 		{					   
+			Log("COM data received in Model_Automatically\r\n");
 			len=USART_RX_STA&0x3fff;//得到此次接收到的数据长度
 			for(t=0;t<len;t++)
 			{
@@ -434,21 +439,24 @@ void Model_Automatically(void)
 				Model=0;
 				printf("%c%c%c",Addr_A[0],Addr_A[1],Lora_Channel);
 				printf("A9801%c%c\r\n\r\n",Now_Label[0],Now_Label[1]);//退出轨道机预设模式
+				Log("Exit Model Automatically\r\n");
 			}
 			else if(RX[0]==0&&RX[1]==0)
 			{
 				printf("%c%c%c",Addr_A[0],Addr_A[1],Lora_Channel);
 				printf("A9811%02d\r\n",label);
+				Log("Upload state: Model Automatically\r\n");
 			}
 			else if(RX[0]==9&&RX[1]==1)
 			{
+				Log("RESET\r\n");
 				__set_FAULTMASK(1); 
 				NVIC_SystemReset();
 			} 	
 			else
 			{
 				Destination_Label=RX[2]*10+RX[3];
-				printf("%d",Destination_Label);
+				//printf("%d",Destination_Label);
 				if(label > Destination_Label && label > 10 && label < 13)
 				{
 					Destination_Label = 10;
@@ -458,7 +466,7 @@ void Model_Automatically(void)
 				{
 					Destination_Label = 7;
 				}
-				if(RX[0]==1&&RX[1]==1&&STOP_Status==1)
+				if(RX[0]==3&&RX[1]==1&&STOP_Status==1)		//前进
 				{
 					GPIO_ResetBits(GPIOC,GPIO_Pin_6);	//继电器
 					GPIO_ResetBits(GPIOB,GPIO_Pin_9);	//IO口
@@ -469,7 +477,7 @@ void Model_Automatically(void)
 					GPIO_SetBits(GPIOA,GPIO_Pin_8);
 					Auto_GO();	
 				}
-				else if(RX[0]==1&&RX[1]==0&&STOP_Status==1)
+				else if(RX[0]==3&&RX[1]==0&&STOP_Status==1)		//后退
 				{	
 					GPIO_ResetBits(GPIOC,GPIO_Pin_7);
 					GPIO_ResetBits(GPIOB,GPIO_Pin_10);
@@ -484,7 +492,7 @@ void Model_Automatically(void)
 				
 		}		
 	}
-
+	Log("Exit Model Automatically\r\n");
 }
 
 void STOP(void)
@@ -527,13 +535,15 @@ void STOP(void)
 	{
 		printf("%c%c%c",Addr_A[0],Addr_A[1],Lora_Channel);
 		printf("A9090%02d0%.2f%.2f\r\n",label,x,v);
-	}	
+	}
+	Log("STOP\r\n");
+
 //	delay_ms(200);
 //	printf("%c%c%c",Addr_A[0],Addr_A[1],Lora_Channel);
 //	printf("A9090\r\n");//轨道运输机停止
 }
 
-void Control_GO(void)//前进
+void Control_GO(void)			//控制模式——前进
 {
 	u8 t;
 	u8 len;	 
@@ -544,12 +554,13 @@ void Control_GO(void)//前进
 	RFID_NUM=1;//打开阅读器1
 	printf("%c%c%c",Addr_A[0],Addr_A[1],Lora_Channel);
 	printf("A1111%02d\r\n",label);
+	Log("control go\r\n");
 	while(GO_Status==1)
 	{
-		//printf("GO_status");
+		//Log("GO_status\r\n");
 		while(RFID_NUM==1)//阅读器1进入工作状态
 		{
-			//printf("rfid_1 work");
+			//Log("rfid_1 work\r\n");
 			if(USART_RX_STA&0x8000)
 			{	
 				//printf("get new rx");
@@ -565,7 +576,7 @@ void Control_GO(void)//前进
 					STOP();	
 					break;					
 				}
-				else if(RX[0]==0&&RX[1]==0)
+				else if(RX[0]==0&&RX[1]==0)				//数据上报
 				{
 					T22 = T2;
 					T21 = TIM_GetCounter(TIM2);
@@ -588,7 +599,7 @@ void Control_GO(void)//前进
 			if(IO_GO_Status==0&&IO_BACK_Status==0&&IO_STOP_Status==0)
 			{
 				STOP();
-				printf("get pin to stop num1");
+				Log("get pin to stop num1\r\n");
 				break;
 			}
 			
@@ -617,7 +628,7 @@ void Control_GO(void)//前进
 
 		while(RFID_NUM==2)//阅读器2进入工作状态
 		{
-			//printf("rfid_2 work");
+			Log("rfid_2 work\r\n");
 			if(USART_RX_STA&0x8000)
 			{					   
 				len=USART_RX_STA&0x3fff;//得到此次接收到的数据长度
@@ -656,7 +667,7 @@ void Control_GO(void)//前进
 			if(IO_GO_Status==0&&IO_BACK_Status==0&&IO_STOP_Status==0)
 			{
 				STOP();
-				printf("get pin to stop num2");
+				Log("get pin to stop num2");
 				break;
 			}
 			
@@ -713,7 +724,7 @@ void Control_GO(void)//前进
 						}
 						Same_Bit=0;
 					}
-					label=len+1;
+					label=len+1;						
 					Now_Label[0]=label/10+48;
 					Now_Label[1]=label%10+48;
 					SPI_Flash_Write((u8*)Now_Label,10,2);
@@ -733,9 +744,10 @@ void Control_GO(void)//前进
 				
 			}						
 		}
-	}	
+	}
+	Log("control go end\r\n");	
 }
-void Control_BACK(void)//后退
+void Control_BACK(void)		//控制模式——后退
 {
 	u8 t;
 	u8 len;	 
@@ -746,6 +758,7 @@ void Control_BACK(void)//后退
 	RFID_NUM=2;//打开阅读器2
 	printf("%c%c%c",Addr_A[0],Addr_A[1],Lora_Channel);
 	printf("A1010%02d\r\n",label);
+	Log("Control_BACK\r\n");
 	while(BACK_Status==1)
 	{
 		while(RFID_NUM==2)//阅读器1进入工作状态
@@ -925,6 +938,7 @@ void Control_BACK(void)//后退
 			}
 		}
 	}
+	Log("control back end\r\n");
 }
 
 void Auto_GO(void)	//预设模式——前进
@@ -938,6 +952,7 @@ void Auto_GO(void)	//预设模式——前进
 	RFID_NUM=1;//打开阅读器1
 	printf("%c%c%c",Addr_A[0],Addr_A[1],Lora_Channel);
 	printf("A2222%02d\r\n",label);
+	Log("Auto_GO\r\n");
 	while(GO_Status==1)
 	{
 		while(RFID_NUM==1)//阅读器1进入工作状态
@@ -981,7 +996,7 @@ void Auto_GO(void)	//预设模式——前进
 //				printf("A1111%02d%.2f%.2f\r\n",label,x,v);	 	
 //			}
 			//寻卡
-			 if(Request_Anticoll(PICC_REQALL,CT,SN_1,RFID_NUM)==MI_OK)
+			if(Request_Anticoll(PICC_REQALL,CT,SN_1,RFID_NUM)==MI_OK)
 			{
 				TIM2_CLOSE();
 				TIM3_OPEN();
@@ -1099,7 +1114,7 @@ void Auto_GO(void)	//预设模式——前进
 			}					
 		}
 	}	
-
+	Log("auto go end\r\n");
 }
 void Auto_BACK(void)	//预设模式——后退
 {
@@ -1112,6 +1127,7 @@ void Auto_BACK(void)	//预设模式——后退
 	RFID_NUM=2;//打开阅读器2
 	printf("%c%c%c",Addr_A[0],Addr_A[1],Lora_Channel);
 	printf("A2020%02d\r\n",label);
+	Log("Auto_BACK\r\n");
 	while(BACK_Status==1)
 	{
 		while(RFID_NUM==2)//阅读器2进入工作状态
@@ -1155,7 +1171,7 @@ void Auto_BACK(void)	//预设模式——后退
 //				printf("A1010%02d%.2f%.2f\r\n",label,x,v);		
 //			}
 			//寻卡
-			 if(Request_Anticoll(PICC_REQALL,CT,SN_2,RFID_NUM)==MI_OK)
+			if(Request_Anticoll(PICC_REQALL,CT,SN_2,RFID_NUM)==MI_OK)
 			{
 				TIM2_CLOSE();
 				TIM3_OPEN();
@@ -1166,7 +1182,7 @@ void Auto_BACK(void)	//预设模式——后退
 				RFID_NUM=1;	
 			}
 		}
-		while(RFID_NUM==1)//阅读器2进入工作状态
+		while(RFID_NUM==1)//阅读器1进入工作状态
 		{
 			if(USART_RX_STA&0x8000)
 			{					   
@@ -1273,7 +1289,7 @@ void Auto_BACK(void)	//预设模式——后退
 			}					
 		}
 	}	
-
+	Log("auto back end\r\n");
 }
 
  int main(void)
@@ -1283,16 +1299,16 @@ void Auto_BACK(void)	//预设模式——后退
 	u8 RX[2]; 
 	delay_init();	    	 //延时函数初始化	
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);// 设置中断优先级分组2
-	uart_init(9600);	 //串口初始化为9600
+	uart_init(115200);	 //串口初始化为115200
 	LED_Init();		  	 //初始化与LED连接的硬件接口 
 	RELAY_IO_Init();
 	IO_OUT_Init();
 	IO_IN_Init();
 	KEY_Init();
-	TIM3_Int_Init(65000,71);//定时器3初始化 ,每65ms，进入一次中断
-	TIM2_Int_Init(65000,71);
-	TIM4_Int_Init(65000,71);//
-	TIM5_Int_Init(65000,71);
+	TIM3_Int_Init(10000,71);	//定时器3初始化 ,每10ms，进入一次中断
+	TIM2_Int_Init(10000,71);
+	TIM4_Int_Init(10000,7199);//
+	TIM5_Int_Init(10000,7199);
 	TIM2_CLOSE();
 	TIM3_CLOSE();
 	TIM4_CLOSE(); 
@@ -1301,36 +1317,40 @@ void Auto_BACK(void)	//预设模式——后退
 	RC522_2_Init(); 
 	SPI_Flash_Init();	 
 	Read_RFID();
-	
 	while(1)
 	{	
 		Read_IO();
+		
 		if(USART_RX_STA&0x8000)
 		{
-			//printf("IO口为停止状态，检测到串口信号输入");
+			//Log("IO stop,COM data in\r\n");
 			len=USART_RX_STA&0x3fff;//得到此次接收到的数据长度
+			//printf("len: %d\r\n",len);
 			for(t=0;t<len;t++)
 			{
 				RX[t]=USART_RX_BUF[t];
-				RX[t]=RX[t]-48;		
+				RX[t]=RX[t]-48;
+				//printf("USART_RX_BUF[%d]: %d\r\n",t,USART_RX_BUF[t]);		
 			}
 			USART_RX_STA=0;
 			if(RX[0]==9&&RX[1]==9)//控制模式
 			{
-				//printf("Get into Control_model");
+				//Log("Get into Control_model\r\n");
 				Model_Control();
 			}			
 			else if(RX[0]==9&&RX[1]==8)//预设模式
 			{
+				Log("Get into Auto_model\r\n");
 				Model_Automatically();				
 			}			
 			else if(RX[0]==9&&RX[1]==6)//录入标签
 			{
 				Save_RFID();
 			}
-			else if(RX[0]==0&&RX[1]==0)
+			else if(RX[0]==0&&RX[1]==0)	//上报目前所在位置
 			{
 				//x=v*(T2/100);
+				Log("Get into Report_model\r\n");
 				printf("%c%c%c",Addr_A[0],Addr_A[1],Lora_Channel);
 				printf("A0000%c%c\r\n",Now_Label[0],Now_Label[1]);
 			}
