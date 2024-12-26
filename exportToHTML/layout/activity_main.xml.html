@@ -1,0 +1,648 @@
+<html>
+<head>
+<title>activity_main.xml</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #080808; font-style: italic;}
+.s1 { color: #174ad4;}
+.s2 { color: #080808;}
+.s3 { color: #067d17;}
+.s4 { color: #0033b3;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+activity_main.xml</font>
+</center></td></tr></table>
+<pre><span class="s0">&lt;?</span><span class="s1">xml version</span><span class="s3">=&quot;1.0&quot; </span><span class="s1">encoding</span><span class="s3">=&quot;utf-8&quot;</span><span class="s0">?&gt;</span>
+<span class="s2">&lt;</span><span class="s4">androidx.constraintlayout.widget.ConstraintLayout </span><span class="s1">xmlns:android</span><span class="s3">=&quot;http://schemas.android.com/apk/res/android&quot;</span>
+    <span class="s1">xmlns:app</span><span class="s3">=&quot;http://schemas.android.com/apk/res-auto&quot;</span>
+    <span class="s1">xmlns:tools</span><span class="s3">=&quot;http://schemas.android.com/tools&quot;</span>
+    <span class="s1">android:layout_width</span><span class="s3">=&quot;match_parent&quot;</span>
+    <span class="s1">android:layout_height</span><span class="s3">=&quot;match_parent&quot;</span>
+    <span class="s1">tools:context</span><span class="s3">=&quot;.MainActivity&quot;</span><span class="s2">&gt;</span>
+    <span class="s2">&lt;</span><span class="s4">include </span><span class="s1">layout</span><span class="s3">=&quot;@layout/title&quot;</span><span class="s2">&gt;&lt;/</span><span class="s4">include</span><span class="s2">&gt;</span>
+
+    <span class="s2">&lt;</span><span class="s4">LinearLayout</span>
+        <span class="s1">android:layout_width</span><span class="s3">=&quot;match_parent&quot;</span>
+        <span class="s1">android:layout_height</span><span class="s3">=&quot;wrap_content&quot;</span>
+        <span class="s1">android:layout_weight</span><span class="s3">=&quot;1&quot;</span>
+        <span class="s1">android:layout_marginTop</span><span class="s3">=&quot;35dp&quot;</span>
+        <span class="s1">android:orientation</span><span class="s3">=&quot;vertical&quot;</span>
+        <span class="s1">app:layout_constraintStart_toStartOf</span><span class="s3">=&quot;parent&quot;</span>
+        <span class="s1">app:layout_constraintTop_toTopOf</span><span class="s3">=&quot;parent&quot;</span><span class="s2">&gt;</span>
+
+        <span class="s2">&lt;</span><span class="s4">LinearLayout</span>
+            <span class="s1">android:layout_width</span><span class="s3">=&quot;match_parent&quot;</span>
+            <span class="s1">android:layout_height</span><span class="s3">=&quot;wrap_content&quot;</span>
+            <span class="s1">android:orientation</span><span class="s3">=&quot;vertical&quot;</span><span class="s2">&gt;</span>
+
+            <span class="s2">&lt;</span><span class="s4">TextView</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;match_parent&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;30dp&quot;</span>
+                <span class="s1">android:layout_marginTop</span><span class="s3">=&quot;15dp&quot;</span>
+                <span class="s1">android:gravity</span><span class="s3">=&quot;center&quot;</span>
+                <span class="s1">android:text</span><span class="s3">=&quot;Precision Location-aware and Intelligent &quot;</span>
+                <span class="s1">android:textColor</span><span class="s3">=&quot;#8B4513&quot;</span>
+                <span class="s1">android:textSize</span><span class="s3">=&quot;18dp&quot; </span><span class="s2">/&gt;</span>
+
+            <span class="s2">&lt;</span><span class="s4">TextView</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;match_parent&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;30dp&quot;</span>
+                <span class="s1">android:layout_marginTop</span><span class="s3">=&quot;-5dp&quot;</span>
+                <span class="s1">android:gravity</span><span class="s3">=&quot;center&quot;</span>
+                <span class="s1">android:text</span><span class="s3">=&quot;Scheduling System&quot;</span>
+                <span class="s1">android:textColor</span><span class="s3">=&quot;#8B4513&quot;</span>
+                <span class="s1">android:textSize</span><span class="s3">=&quot;18dp&quot; </span><span class="s2">/&gt;</span>
+        <span class="s2">&lt;/</span><span class="s4">LinearLayout</span><span class="s2">&gt;</span>
+
+        <span class="s2">&lt;</span><span class="s4">RelativeLayout</span>
+            <span class="s1">android:layout_width</span><span class="s3">=&quot;match_parent&quot;</span>
+            <span class="s1">android:layout_height</span><span class="s3">=&quot;wrap_content&quot;</span>
+            <span class="s1">android:layout_weight</span><span class="s3">=&quot;1&quot;</span><span class="s2">&gt;</span>
+
+            <span class="s2">&lt;</span><span class="s4">ImageView</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;330dp&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;480dp&quot;</span>
+                <span class="s1">android:layout_centerHorizontal</span><span class="s3">=&quot;true&quot;</span>
+                <span class="s1">android:src</span><span class="s3">=&quot;@drawable/rail&quot; </span><span class="s2">/&gt;</span>
+            <span class="s2">&lt;</span><span class="s4">ImageView</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;50dp&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;50dp&quot;</span>
+                <span class="s1">android:layout_marginRight</span><span class="s3">=&quot;-230dp&quot;</span>
+                <span class="s1">android:layout_toLeftOf</span><span class="s3">=&quot;@+id/tag1&quot;</span>
+                <span class="s1">android:layout_marginBottom</span><span class="s3">=&quot;-73dp&quot;</span>
+                <span class="s1">android:layout_above</span><span class="s3">=&quot;@+id/tag4&quot;</span>
+                <span class="s1">android:src</span><span class="s3">=&quot;@drawable/car&quot; </span><span class="s2">/&gt;</span>
+            <span class="s2">&lt;</span><span class="s4">TextView</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;130dp&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;wrap_content&quot;</span>
+                <span class="s1">android:layout_marginLeft</span><span class="s3">=&quot;20dp&quot;</span>
+                <span class="s1">android:layout_marginRight</span><span class="s3">=&quot;-305dp&quot;</span>
+                <span class="s1">android:layout_toLeftOf</span><span class="s3">=&quot;@+id/tag1&quot;</span>
+                <span class="s1">android:layout_marginBottom</span><span class="s3">=&quot;-60dp&quot;</span>
+                <span class="s1">android:layout_above</span><span class="s3">=&quot;@+id/tag4&quot;</span>
+                <span class="s1">android:text</span><span class="s3">=&quot;A&quot;</span>
+                <span class="s1">android:textColor</span><span class="s3">=&quot;#8B4513&quot;</span>
+                <span class="s1">android:textSize</span><span class="s3">=&quot;16dp&quot;</span>
+                <span class="s1">android:textStyle</span><span class="s3">=&quot;bold&quot; </span><span class="s2">/&gt;</span>
+            <span class="s2">&lt;</span><span class="s4">ImageView</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;50dp&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;50dp&quot;</span>
+                <span class="s1">android:layout_centerHorizontal</span><span class="s3">=&quot;true&quot;</span>
+                <span class="s1">android:layout_marginRight</span><span class="s3">=&quot;-36dp&quot;</span>
+                <span class="s1">android:layout_toLeftOf</span><span class="s3">=&quot;@+id/tag11&quot;</span>
+                <span class="s1">android:layout_marginBottom</span><span class="s3">=&quot;-42dp&quot;</span>
+                <span class="s1">android:layout_above</span><span class="s3">=&quot;@+id/tag12&quot;</span>
+                <span class="s1">android:src</span><span class="s3">=&quot;@drawable/car&quot; </span><span class="s2">/&gt;</span>
+            <span class="s2">&lt;</span><span class="s4">TextView</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;50dp&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;50dp&quot;</span>
+                <span class="s1">android:layout_toLeftOf</span><span class="s3">=&quot;@+id/tag12&quot;</span>
+                <span class="s1">android:layout_marginBottom</span><span class="s3">=&quot;-60dp&quot;</span>
+                <span class="s1">android:layout_marginRight</span><span class="s3">=&quot;-33dp&quot;</span>
+                <span class="s1">android:layout_above</span><span class="s3">=&quot;@+id/tag12&quot;</span>
+                <span class="s1">android:text</span><span class="s3">=&quot;B&quot;</span>
+                <span class="s1">android:textColor</span><span class="s3">=&quot;#8B4513&quot;</span>
+                <span class="s1">android:textSize</span><span class="s3">=&quot;16dp&quot;</span>
+                <span class="s1">android:textStyle</span><span class="s3">=&quot;bold&quot; </span><span class="s2">/&gt;</span>
+
+            <span class="s2">&lt;</span><span class="s4">com.google.android.material.button.MaterialButton</span>
+                <span class="s1">android:id</span><span class="s3">=&quot;@+id/tag1&quot;</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;20dp&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;20dp&quot;</span>
+                <span class="s1">android:layout_below</span><span class="s3">=&quot;@+id/tag2&quot;</span>
+                <span class="s1">android:layout_marginLeft</span><span class="s3">=&quot;160dp&quot;</span>
+                <span class="s1">android:layout_marginTop</span><span class="s3">=&quot;40dp&quot;</span>
+                <span class="s1">android:backgroundTint</span><span class="s3">=&quot;@color/red&quot;</span>
+                <span class="s1">android:insetTop</span><span class="s3">=&quot;0dp&quot;</span>
+                <span class="s1">android:gravity</span><span class="s3">=&quot;center&quot;</span>
+                <span class="s1">android:insetBottom</span><span class="s3">=&quot;0dp&quot;</span>
+                <span class="s1">app:strokeWidth</span><span class="s3">=&quot;1dp&quot;</span>
+                <span class="s1">app:strokeColor</span><span class="s3">=&quot;@color/white&quot;</span>
+                <span class="s1">app:cornerRadius</span><span class="s3">=&quot;10dp&quot;</span>
+                <span class="s1">android:text</span><span class="s3">=&quot;1&quot;</span>
+                <span class="s1">android:textColor</span><span class="s3">=&quot;@color/white&quot;</span>
+                <span class="s1">android:textSize</span><span class="s3">=&quot;10dp&quot;</span>
+                <span class="s1">android:textStyle</span><span class="s3">=&quot;bold&quot; </span><span class="s2">/&gt;</span>
+
+            <span class="s2">&lt;</span><span class="s4">com.google.android.material.button.MaterialButton</span>
+                <span class="s1">android:id</span><span class="s3">=&quot;@+id/tag2&quot;</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;20dp&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;20dp&quot;</span>
+                <span class="s1">android:layout_below</span><span class="s3">=&quot;@+id/tag3&quot;</span>
+                <span class="s1">android:layout_marginLeft</span><span class="s3">=&quot;194dp&quot;</span>
+                <span class="s1">android:layout_marginTop</span><span class="s3">=&quot;30dp&quot;</span>
+                <span class="s1">android:backgroundTint</span><span class="s3">=&quot;@color/red&quot;</span>
+                <span class="s1">android:insetTop</span><span class="s3">=&quot;0dp&quot;</span>
+                <span class="s1">android:gravity</span><span class="s3">=&quot;center&quot;</span>
+                <span class="s1">android:insetBottom</span><span class="s3">=&quot;0dp&quot;</span>
+                <span class="s1">app:strokeWidth</span><span class="s3">=&quot;1dp&quot;</span>
+                <span class="s1">app:strokeColor</span><span class="s3">=&quot;@color/white&quot;</span>
+                <span class="s1">app:cornerRadius</span><span class="s3">=&quot;10dp&quot;</span>
+                <span class="s1">android:text</span><span class="s3">=&quot;2&quot;</span>
+                <span class="s1">android:textColor</span><span class="s3">=&quot;@color/white&quot;</span>
+                <span class="s1">android:textSize</span><span class="s3">=&quot;10dp&quot;</span>
+                <span class="s1">android:textStyle</span><span class="s3">=&quot;bold&quot; </span><span class="s2">/&gt;</span>
+
+            <span class="s2">&lt;</span><span class="s4">com.google.android.material.button.MaterialButton</span>
+                <span class="s1">android:id</span><span class="s3">=&quot;@+id/tag3&quot;</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;20dp&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;20dp&quot;</span>
+                <span class="s1">android:layout_below</span><span class="s3">=&quot;@+id/tag4&quot;</span>
+                <span class="s1">android:layout_marginLeft</span><span class="s3">=&quot;194dp&quot;</span>
+                <span class="s1">android:layout_marginTop</span><span class="s3">=&quot;30dp&quot;</span>
+                <span class="s1">android:backgroundTint</span><span class="s3">=&quot;@color/red&quot;</span>
+                <span class="s1">android:insetTop</span><span class="s3">=&quot;0dp&quot;</span>
+                <span class="s1">android:gravity</span><span class="s3">=&quot;center&quot;</span>
+                <span class="s1">android:insetBottom</span><span class="s3">=&quot;0dp&quot;</span>
+                <span class="s1">app:strokeWidth</span><span class="s3">=&quot;1dp&quot;</span>
+                <span class="s1">app:strokeColor</span><span class="s3">=&quot;@color/white&quot;</span>
+                <span class="s1">app:cornerRadius</span><span class="s3">=&quot;10dp&quot;</span>
+                <span class="s1">android:text</span><span class="s3">=&quot;3&quot;</span>
+                <span class="s1">android:textColor</span><span class="s3">=&quot;@color/white&quot;</span>
+                <span class="s1">android:textSize</span><span class="s3">=&quot;10dp&quot;</span>
+                <span class="s1">android:textStyle</span><span class="s3">=&quot;bold&quot; </span><span class="s2">/&gt;</span>
+
+            <span class="s2">&lt;</span><span class="s4">com.google.android.material.button.MaterialButton</span>
+                <span class="s1">android:id</span><span class="s3">=&quot;@+id/tag4&quot;</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;20dp&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;20dp&quot;</span>
+                <span class="s1">android:layout_below</span><span class="s3">=&quot;@+id/tag5&quot;</span>
+                <span class="s1">android:layout_marginLeft</span><span class="s3">=&quot;194dp&quot;</span>
+                <span class="s1">android:layout_marginTop</span><span class="s3">=&quot;30dp&quot;</span>
+                <span class="s1">android:backgroundTint</span><span class="s3">=&quot;@color/red&quot;</span>
+                <span class="s1">android:insetTop</span><span class="s3">=&quot;0dp&quot;</span>
+                <span class="s1">android:gravity</span><span class="s3">=&quot;center&quot;</span>
+                <span class="s1">android:insetBottom</span><span class="s3">=&quot;0dp&quot;</span>
+                <span class="s1">app:strokeWidth</span><span class="s3">=&quot;1dp&quot;</span>
+                <span class="s1">app:strokeColor</span><span class="s3">=&quot;@color/white&quot;</span>
+                <span class="s1">app:cornerRadius</span><span class="s3">=&quot;10dp&quot;</span>
+                <span class="s1">android:text</span><span class="s3">=&quot;4&quot;</span>
+                <span class="s1">android:textColor</span><span class="s3">=&quot;@color/white&quot;</span>
+                <span class="s1">android:textSize</span><span class="s3">=&quot;10dp&quot;</span>
+                <span class="s1">android:textStyle</span><span class="s3">=&quot;bold&quot; </span><span class="s2">/&gt;</span>
+
+            <span class="s2">&lt;</span><span class="s4">com.google.android.material.button.MaterialButton</span>
+                <span class="s1">android:id</span><span class="s3">=&quot;@+id/tag5&quot;</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;20dp&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;20dp&quot;</span>
+                <span class="s1">android:layout_centerVertical</span><span class="s3">=&quot;true&quot;</span>
+                <span class="s1">android:layout_marginLeft</span><span class="s3">=&quot;194dp&quot;</span>
+                <span class="s1">android:layout_marginTop</span><span class="s3">=&quot;150dp&quot;</span>
+                <span class="s1">android:backgroundTint</span><span class="s3">=&quot;@color/red&quot;</span>
+                <span class="s1">android:insetTop</span><span class="s3">=&quot;0dp&quot;</span>
+                <span class="s1">android:gravity</span><span class="s3">=&quot;center&quot;</span>
+                <span class="s1">android:insetBottom</span><span class="s3">=&quot;0dp&quot;</span>
+                <span class="s1">app:strokeWidth</span><span class="s3">=&quot;1dp&quot;</span>
+                <span class="s1">app:strokeColor</span><span class="s3">=&quot;@color/white&quot;</span>
+                <span class="s1">app:cornerRadius</span><span class="s3">=&quot;10dp&quot;</span>
+                <span class="s1">android:text</span><span class="s3">=&quot;5&quot;</span>
+                <span class="s1">android:textColor</span><span class="s3">=&quot;@color/white&quot;</span>
+                <span class="s1">android:textSize</span><span class="s3">=&quot;10dp&quot;</span>
+                <span class="s1">android:textStyle</span><span class="s3">=&quot;bold&quot; </span><span class="s2">/&gt;</span>
+
+            <span class="s2">&lt;</span><span class="s4">com.google.android.material.button.MaterialButton</span>
+                <span class="s1">android:id</span><span class="s3">=&quot;@+id/tag6&quot;</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;20dp&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;20dp&quot;</span>
+                <span class="s1">android:layout_above</span><span class="s3">=&quot;@+id/tag5&quot;</span>
+                <span class="s1">android:layout_marginLeft</span><span class="s3">=&quot;194dp&quot;</span>
+                <span class="s1">android:layout_marginBottom</span><span class="s3">=&quot;-120dp&quot;</span>
+                <span class="s1">android:backgroundTint</span><span class="s3">=&quot;@color/red&quot;</span>
+                <span class="s1">android:insetTop</span><span class="s3">=&quot;0dp&quot;</span>
+                <span class="s1">android:gravity</span><span class="s3">=&quot;center&quot;</span>
+                <span class="s1">android:insetBottom</span><span class="s3">=&quot;0dp&quot;</span>
+                <span class="s1">app:strokeWidth</span><span class="s3">=&quot;1dp&quot;</span>
+                <span class="s1">app:strokeColor</span><span class="s3">=&quot;@color/white&quot;</span>
+                <span class="s1">app:cornerRadius</span><span class="s3">=&quot;10dp&quot;</span>
+                <span class="s1">android:text</span><span class="s3">=&quot;6&quot;</span>
+                <span class="s1">android:textColor</span><span class="s3">=&quot;@color/white&quot;</span>
+                <span class="s1">android:textSize</span><span class="s3">=&quot;10dp&quot;</span>
+                <span class="s1">android:textStyle</span><span class="s3">=&quot;bold&quot; </span><span class="s2">/&gt;</span>
+
+            <span class="s2">&lt;</span><span class="s4">com.google.android.material.button.MaterialButton</span>
+                <span class="s1">android:id</span><span class="s3">=&quot;@+id/tag7&quot;</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;20dp&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;20dp&quot;</span>
+                <span class="s1">android:layout_above</span><span class="s3">=&quot;@+id/tag6&quot;</span>
+                <span class="s1">android:layout_marginLeft</span><span class="s3">=&quot;194dp&quot;</span>
+                <span class="s1">android:layout_marginBottom</span><span class="s3">=&quot;40dp&quot;</span>
+                <span class="s1">android:backgroundTint</span><span class="s3">=&quot;@color/red&quot;</span>
+                <span class="s1">android:insetTop</span><span class="s3">=&quot;0dp&quot;</span>
+                <span class="s1">android:gravity</span><span class="s3">=&quot;center&quot;</span>
+                <span class="s1">android:insetBottom</span><span class="s3">=&quot;0dp&quot;</span>
+                <span class="s1">app:strokeWidth</span><span class="s3">=&quot;1dp&quot;</span>
+                <span class="s1">app:strokeColor</span><span class="s3">=&quot;@color/white&quot;</span>
+                <span class="s1">app:cornerRadius</span><span class="s3">=&quot;10dp&quot;</span>
+                <span class="s1">android:text</span><span class="s3">=&quot;7&quot;</span>
+                <span class="s1">android:textColor</span><span class="s3">=&quot;@color/white&quot;</span>
+                <span class="s1">android:textSize</span><span class="s3">=&quot;10dp&quot;</span>
+                <span class="s1">android:textStyle</span><span class="s3">=&quot;bold&quot; </span><span class="s2">/&gt;</span>
+
+            <span class="s2">&lt;</span><span class="s4">com.google.android.material.button.MaterialButton</span>
+                <span class="s1">android:id</span><span class="s3">=&quot;@+id/tag8&quot;</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;20dp&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;20dp&quot;</span>
+                <span class="s1">android:layout_above</span><span class="s3">=&quot;@+id/tag7&quot;</span>
+                <span class="s1">android:layout_marginLeft</span><span class="s3">=&quot;194dp&quot;</span>
+                <span class="s1">android:layout_marginBottom</span><span class="s3">=&quot;30dp&quot;</span>
+                <span class="s1">android:backgroundTint</span><span class="s3">=&quot;@color/red&quot;</span>
+                <span class="s1">android:insetTop</span><span class="s3">=&quot;0dp&quot;</span>
+                <span class="s1">android:gravity</span><span class="s3">=&quot;center&quot;</span>
+                <span class="s1">android:insetBottom</span><span class="s3">=&quot;0dp&quot;</span>
+                <span class="s1">app:strokeWidth</span><span class="s3">=&quot;1dp&quot;</span>
+                <span class="s1">app:strokeColor</span><span class="s3">=&quot;@color/white&quot;</span>
+                <span class="s1">app:cornerRadius</span><span class="s3">=&quot;10dp&quot;</span>
+                <span class="s1">android:text</span><span class="s3">=&quot;8&quot;</span>
+                <span class="s1">android:textColor</span><span class="s3">=&quot;@color/white&quot;</span>
+                <span class="s1">android:textSize</span><span class="s3">=&quot;10dp&quot;</span>
+                <span class="s1">android:textStyle</span><span class="s3">=&quot;bold&quot; </span><span class="s2">/&gt;</span>
+
+            <span class="s2">&lt;</span><span class="s4">com.google.android.material.button.MaterialButton</span>
+                <span class="s1">android:id</span><span class="s3">=&quot;@+id/tag9&quot;</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;20dp&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;20dp&quot;</span>
+                <span class="s1">android:layout_above</span><span class="s3">=&quot;@+id/tag8&quot;</span>
+                <span class="s1">android:layout_marginLeft</span><span class="s3">=&quot;194dp&quot;</span>
+                <span class="s1">android:layout_marginBottom</span><span class="s3">=&quot;30dp&quot;</span>
+                <span class="s1">android:backgroundTint</span><span class="s3">=&quot;@color/red&quot;</span>
+                <span class="s1">android:insetTop</span><span class="s3">=&quot;0dp&quot;</span>
+                <span class="s1">android:gravity</span><span class="s3">=&quot;center&quot;</span>
+                <span class="s1">android:insetBottom</span><span class="s3">=&quot;0dp&quot;</span>
+                <span class="s1">app:strokeWidth</span><span class="s3">=&quot;1dp&quot;</span>
+                <span class="s1">app:strokeColor</span><span class="s3">=&quot;@color/white&quot;</span>
+                <span class="s1">app:cornerRadius</span><span class="s3">=&quot;10dp&quot;</span>
+                <span class="s1">android:text</span><span class="s3">=&quot;9&quot;</span>
+                <span class="s1">android:textColor</span><span class="s3">=&quot;@color/white&quot;</span>
+                <span class="s1">android:textSize</span><span class="s3">=&quot;10dp&quot;</span>
+                <span class="s1">android:textStyle</span><span class="s3">=&quot;bold&quot; </span><span class="s2">/&gt;</span>
+
+            <span class="s2">&lt;</span><span class="s4">com.google.android.material.button.MaterialButton</span>
+                <span class="s1">android:id</span><span class="s3">=&quot;@+id/tag10&quot;</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;20dp&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;20dp&quot;</span>
+                <span class="s1">android:layout_above</span><span class="s3">=&quot;@+id/tag6&quot;</span>
+                <span class="s1">android:layout_marginRight</span><span class="s3">=&quot;-177dp&quot;</span>
+                <span class="s1">android:layout_marginBottom</span><span class="s3">=&quot;45dp&quot;</span>
+                <span class="s1">android:layout_toLeftOf</span><span class="s3">=&quot;@+id/tag7&quot;</span>
+                <span class="s1">android:backgroundTint</span><span class="s3">=&quot;@color/red&quot;</span>
+                <span class="s1">android:insetTop</span><span class="s3">=&quot;0dp&quot;</span>
+                <span class="s1">android:gravity</span><span class="s3">=&quot;center&quot;</span>
+                <span class="s1">android:insetBottom</span><span class="s3">=&quot;0dp&quot;</span>
+                <span class="s1">app:strokeWidth</span><span class="s3">=&quot;1dp&quot;</span>
+                <span class="s1">app:strokeColor</span><span class="s3">=&quot;@color/white&quot;</span>
+                <span class="s1">app:cornerRadius</span><span class="s3">=&quot;10dp&quot;</span>
+                <span class="s1">android:text</span><span class="s3">=&quot;10&quot;</span>
+                <span class="s1">android:textColor</span><span class="s3">=&quot;@color/white&quot;</span>
+                <span class="s1">android:textSize</span><span class="s3">=&quot;10dp&quot;</span>
+                <span class="s1">android:textStyle</span><span class="s3">=&quot;bold&quot; </span><span class="s2">/&gt;</span>
+
+            <span class="s2">&lt;</span><span class="s4">com.google.android.material.button.MaterialButton</span>
+                <span class="s1">android:id</span><span class="s3">=&quot;@+id/tag11&quot;</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;20dp&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;20dp&quot;</span>
+                <span class="s1">android:layout_above</span><span class="s3">=&quot;@+id/tag10&quot;</span>
+                <span class="s1">android:layout_marginRight</span><span class="s3">=&quot;-154dp&quot;</span>
+                <span class="s1">android:layout_marginBottom</span><span class="s3">=&quot;25dp&quot;</span>
+                <span class="s1">android:layout_toLeftOf</span><span class="s3">=&quot;@+id/tag9&quot;</span>
+                <span class="s1">android:backgroundTint</span><span class="s3">=&quot;@color/red&quot;</span>
+                <span class="s1">android:insetTop</span><span class="s3">=&quot;0dp&quot;</span>
+                <span class="s1">android:gravity</span><span class="s3">=&quot;center&quot;</span>
+                <span class="s1">android:insetBottom</span><span class="s3">=&quot;0dp&quot;</span>
+                <span class="s1">app:strokeWidth</span><span class="s3">=&quot;1dp&quot;</span>
+                <span class="s1">app:strokeColor</span><span class="s3">=&quot;@color/white&quot;</span>
+                <span class="s1">app:cornerRadius</span><span class="s3">=&quot;10dp&quot;</span>
+                <span class="s1">android:text</span><span class="s3">=&quot;11&quot;</span>
+                <span class="s1">android:textColor</span><span class="s3">=&quot;@color/white&quot;</span>
+                <span class="s1">android:textSize</span><span class="s3">=&quot;10dp&quot;</span>
+                <span class="s1">android:textStyle</span><span class="s3">=&quot;bold&quot; </span><span class="s2">/&gt;</span>
+
+            <span class="s2">&lt;</span><span class="s4">com.google.android.material.button.MaterialButton</span>
+                <span class="s1">android:id</span><span class="s3">=&quot;@+id/tag12&quot;</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;20dp&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;20dp&quot;</span>
+                <span class="s1">android:layout_above</span><span class="s3">=&quot;@+id/tag11&quot;</span>
+                <span class="s1">android:layout_marginRight</span><span class="s3">=&quot;-154dp&quot;</span>
+                <span class="s1">android:layout_marginBottom</span><span class="s3">=&quot;30dp&quot;</span>
+                <span class="s1">android:layout_toLeftOf</span><span class="s3">=&quot;@+id/tag9&quot;</span>
+                <span class="s1">android:backgroundTint</span><span class="s3">=&quot;@color/red&quot;</span>
+                <span class="s1">android:insetTop</span><span class="s3">=&quot;0dp&quot;</span>
+                <span class="s1">android:gravity</span><span class="s3">=&quot;center&quot;</span>
+                <span class="s1">android:insetBottom</span><span class="s3">=&quot;0dp&quot;</span>
+                <span class="s1">app:strokeWidth</span><span class="s3">=&quot;1dp&quot;</span>
+                <span class="s1">app:strokeColor</span><span class="s3">=&quot;@color/white&quot;</span>
+                <span class="s1">app:cornerRadius</span><span class="s3">=&quot;10dp&quot;</span>
+                <span class="s1">android:text</span><span class="s3">=&quot;12&quot;</span>
+                <span class="s1">android:textColor</span><span class="s3">=&quot;@color/white&quot;</span>
+                <span class="s1">android:textSize</span><span class="s3">=&quot;10dp&quot;</span>
+                <span class="s1">android:textStyle</span><span class="s3">=&quot;bold&quot; </span><span class="s2">/&gt;</span>
+        <span class="s2">&lt;/</span><span class="s4">RelativeLayout</span><span class="s2">&gt;</span>
+
+        <span class="s2">&lt;</span><span class="s4">LinearLayout</span>
+            <span class="s1">android:layout_width</span><span class="s3">=&quot;match_parent&quot;</span>
+            <span class="s1">android:layout_height</span><span class="s3">=&quot;wrap_content&quot;</span>
+            <span class="s1">android:layout_marginTop</span><span class="s3">=&quot;-25dp&quot;</span>
+            <span class="s1">android:gravity</span><span class="s3">=&quot;center&quot;</span>
+            <span class="s1">android:orientation</span><span class="s3">=&quot;horizontal&quot;</span><span class="s2">&gt;</span>
+
+            <span class="s2">&lt;</span><span class="s4">TextView</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;130dp&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;wrap_content&quot;</span>
+                <span class="s1">android:layout_marginLeft</span><span class="s3">=&quot;5dp&quot;</span>
+                <span class="s1">android:text</span><span class="s3">=&quot;Transporter：&quot;</span>
+                <span class="s1">android:textSize</span><span class="s3">=&quot;16dp&quot;</span>
+                <span class="s1">android:textStyle</span><span class="s3">=&quot;bold&quot; </span><span class="s2">/&gt;</span>
+
+            <span class="s2">&lt;</span><span class="s4">CheckBox</span>
+                <span class="s1">style</span><span class="s3">=&quot;@style/Widget.AppCompat.CompoundButton.RadioButton&quot;</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;wrap_content&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;wrap_content&quot;</span>
+                <span class="s1">android:layout_marginLeft</span><span class="s3">=&quot;0dp&quot;</span>
+                <span class="s1">android:text</span><span class="s3">=&quot; A &quot;</span>
+                <span class="s1">android:textStyle</span><span class="s3">=&quot;bold&quot;</span>
+                <span class="s1">android:textSize</span><span class="s3">=&quot;15dp&quot;</span>
+                <span class="s1">android:theme</span><span class="s3">=&quot;@style/My_CheckBox2&quot;</span><span class="s2">/&gt;</span>
+            <span class="s2">&lt;</span><span class="s4">CheckBox</span>
+                <span class="s1">style</span><span class="s3">=&quot;@style/Widget.AppCompat.CompoundButton.RadioButton&quot;</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;wrap_content&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;wrap_content&quot;</span>
+                <span class="s1">android:text</span><span class="s3">=&quot; B &quot;</span>
+                <span class="s1">android:textStyle</span><span class="s3">=&quot;bold&quot;</span>
+                <span class="s1">android:textSize</span><span class="s3">=&quot;15dp&quot;</span>
+                <span class="s1">android:theme</span><span class="s3">=&quot;@style/My_CheckBox2&quot;</span><span class="s2">/&gt;</span>
+
+            <span class="s2">&lt;</span><span class="s4">TextView</span>
+                <span class="s1">android:id</span><span class="s3">=&quot;@+id/d_mode&quot;</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;0dp&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;0dp&quot;</span>
+                <span class="s1">android:text</span><span class="s3">=&quot;&quot;</span>
+                <span class="s1">android:textSize</span><span class="s3">=&quot;16dp&quot;</span>
+                <span class="s1">android:textStyle</span><span class="s3">=&quot;bold&quot; </span><span class="s2">/&gt;</span>
+
+            <span class="s2">&lt;</span><span class="s4">TextView</span>
+                <span class="s1">android:id</span><span class="s3">=&quot;@+id/d_status&quot;</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;0dp&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;0dp&quot;</span>
+                <span class="s1">android:text</span><span class="s3">=&quot;&quot;</span>
+                <span class="s1">android:textSize</span><span class="s3">=&quot;16dp&quot;</span>
+                <span class="s1">android:textStyle</span><span class="s3">=&quot;bold&quot; </span><span class="s2">/&gt;</span>
+        <span class="s2">&lt;/</span><span class="s4">LinearLayout</span><span class="s2">&gt;</span>
+
+        <span class="s2">&lt;</span><span class="s4">LinearLayout</span>
+            <span class="s1">android:layout_width</span><span class="s3">=&quot;0dp&quot;</span>
+            <span class="s1">android:layout_height</span><span class="s3">=&quot;0dp&quot;</span>
+            <span class="s1">android:layout_marginTop</span><span class="s3">=&quot;5dp&quot;</span>
+            <span class="s1">android:gravity</span><span class="s3">=&quot;center&quot;</span>
+            <span class="s1">android:orientation</span><span class="s3">=&quot;horizontal&quot;</span><span class="s2">&gt;</span>
+
+            <span class="s2">&lt;</span><span class="s4">TextView</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;85dp&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;wrap_content&quot;</span>
+                <span class="s1">android:text</span><span class="s3">=&quot;距起始点：&quot;</span>
+                <span class="s1">android:textSize</span><span class="s3">=&quot;16dp&quot;</span>
+                <span class="s1">android:textStyle</span><span class="s3">=&quot;bold&quot; </span><span class="s2">/&gt;</span>
+
+            <span class="s2">&lt;</span><span class="s4">TextView</span>
+                <span class="s1">android:id</span><span class="s3">=&quot;@+id/d_distance&quot;</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;90dp&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;wrap_content&quot;</span>
+                <span class="s1">android:text</span><span class="s3">=&quot;&quot;</span>
+                <span class="s1">android:textSize</span><span class="s3">=&quot;16dp&quot;</span>
+                <span class="s1">android:textStyle</span><span class="s3">=&quot;bold&quot; </span><span class="s2">/&gt;</span>
+
+            <span class="s2">&lt;</span><span class="s4">TextView</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;85dp&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;wrap_content&quot;</span>
+                <span class="s1">android:text</span><span class="s3">=&quot;行驶速度：&quot;</span>
+                <span class="s1">android:textSize</span><span class="s3">=&quot;16dp&quot;</span>
+                <span class="s1">android:textStyle</span><span class="s3">=&quot;bold&quot; </span><span class="s2">/&gt;</span>
+
+            <span class="s2">&lt;</span><span class="s4">TextView</span>
+                <span class="s1">android:id</span><span class="s3">=&quot;@+id/d_speed&quot;</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;80dp&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;wrap_content&quot;</span>
+                <span class="s1">android:text</span><span class="s3">=&quot;&quot;</span>
+                <span class="s1">android:textSize</span><span class="s3">=&quot;16dp&quot;</span>
+                <span class="s1">android:textStyle</span><span class="s3">=&quot;bold&quot; </span><span class="s2">/&gt;</span>
+        <span class="s2">&lt;/</span><span class="s4">LinearLayout</span><span class="s2">&gt;</span>
+        <span class="s2">&lt;</span><span class="s4">LinearLayout</span>
+            <span class="s1">android:layout_width</span><span class="s3">=&quot;wrap_content&quot;</span>
+            <span class="s1">android:layout_height</span><span class="s3">=&quot;wrap_content&quot;</span>
+            <span class="s1">android:gravity</span><span class="s3">=&quot;center&quot;</span>
+            <span class="s1">android:orientation</span><span class="s3">=&quot;horizontal&quot;</span><span class="s2">&gt;</span>
+
+            <span class="s2">&lt;</span><span class="s4">TextView</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;85dp&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;wrap_content&quot;</span>
+                <span class="s1">android:layout_marginLeft</span><span class="s3">=&quot;20dp&quot;</span>
+                <span class="s1">android:text</span><span class="s3">=&quot;A：&quot;</span>
+                <span class="s1">android:textSize</span><span class="s3">=&quot;16dp&quot;</span>
+                <span class="s1">android:textStyle</span><span class="s3">=&quot;bold&quot; </span><span class="s2">/&gt;</span>
+
+            <span class="s2">&lt;</span><span class="s4">TextView</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;120dp&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;wrap_content&quot;</span>
+                <span class="s1">android:layout_marginLeft</span><span class="s3">=&quot;-60dp&quot;</span>
+                <span class="s1">android:text</span><span class="s3">=&quot;Job status：&quot;</span>
+                <span class="s1">android:textSize</span><span class="s3">=&quot;16dp&quot;</span>
+                <span class="s1">android:textStyle</span><span class="s3">=&quot;bold&quot; </span><span class="s2">/&gt;</span>
+
+            <span class="s2">&lt;</span><span class="s4">TextView</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;70dp&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;wrap_content&quot;</span>
+                <span class="s1">android:layout_marginLeft</span><span class="s3">=&quot;-10dp&quot;</span>
+                <span class="s1">android:text</span><span class="s3">=&quot;FRONT&quot;</span>
+                <span class="s1">android:textSize</span><span class="s3">=&quot;16dp&quot;</span>
+                <span class="s1">android:textStyle</span><span class="s3">=&quot;bold&quot; </span><span class="s2">/&gt;</span>
+
+            <span class="s2">&lt;</span><span class="s4">TextView</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;85dp&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;wrap_content&quot;</span>
+                <span class="s1">android:text</span><span class="s3">=&quot;Speed：&quot;</span>
+                <span class="s1">android:textSize</span><span class="s3">=&quot;16dp&quot;</span>
+                <span class="s1">android:textStyle</span><span class="s3">=&quot;bold&quot; </span><span class="s2">/&gt;</span>
+
+            <span class="s2">&lt;</span><span class="s4">TextView</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;85dp&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;wrap_content&quot;</span>
+                <span class="s1">android:layout_marginLeft</span><span class="s3">=&quot;-10dp&quot;</span>
+                <span class="s1">android:text</span><span class="s3">=&quot;0.96m/s&quot;</span>
+                <span class="s1">android:textSize</span><span class="s3">=&quot;16dp&quot;</span>
+                <span class="s1">android:textStyle</span><span class="s3">=&quot;bold&quot; </span><span class="s2">/&gt;</span>
+
+        <span class="s2">&lt;/</span><span class="s4">LinearLayout</span><span class="s2">&gt;</span>
+        <span class="s2">&lt;</span><span class="s4">LinearLayout</span>
+            <span class="s1">android:layout_width</span><span class="s3">=&quot;wrap_content&quot;</span>
+            <span class="s1">android:layout_height</span><span class="s3">=&quot;wrap_content&quot;</span>
+            <span class="s1">android:gravity</span><span class="s3">=&quot;center&quot;</span>
+            <span class="s1">android:orientation</span><span class="s3">=&quot;horizontal&quot;</span><span class="s2">&gt;</span>
+
+            <span class="s2">&lt;</span><span class="s4">TextView</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;85dp&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;wrap_content&quot;</span>
+                <span class="s1">android:layout_marginLeft</span><span class="s3">=&quot;20dp&quot;</span>
+                <span class="s1">android:text</span><span class="s3">=&quot;B：&quot;</span>
+                <span class="s1">android:textSize</span><span class="s3">=&quot;16dp&quot;</span>
+                <span class="s1">android:textStyle</span><span class="s3">=&quot;bold&quot; </span><span class="s2">/&gt;</span>
+
+            <span class="s2">&lt;</span><span class="s4">TextView</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;120dp&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;wrap_content&quot;</span>
+                <span class="s1">android:layout_marginLeft</span><span class="s3">=&quot;-60dp&quot;</span>
+                <span class="s1">android:text</span><span class="s3">=&quot;Job status：&quot;</span>
+                <span class="s1">android:textSize</span><span class="s3">=&quot;16dp&quot;</span>
+                <span class="s1">android:textStyle</span><span class="s3">=&quot;bold&quot; </span><span class="s2">/&gt;</span>
+
+            <span class="s2">&lt;</span><span class="s4">TextView</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;50dp&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;wrap_content&quot;</span>
+                <span class="s1">android:layout_marginLeft</span><span class="s3">=&quot;-10dp&quot;</span>
+                <span class="s1">android:text</span><span class="s3">=&quot;BACK&quot;</span>
+                <span class="s1">android:textSize</span><span class="s3">=&quot;16dp&quot;</span>
+                <span class="s1">android:textStyle</span><span class="s3">=&quot;bold&quot; </span><span class="s2">/&gt;</span>
+
+            <span class="s2">&lt;</span><span class="s4">TextView</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;85dp&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;wrap_content&quot;</span>
+                <span class="s1">android:text</span><span class="s3">=&quot;Speed：&quot;</span>
+                <span class="s1">android:layout_marginLeft</span><span class="s3">=&quot;20dp&quot;</span>
+                <span class="s1">android:textSize</span><span class="s3">=&quot;16dp&quot;</span>
+                <span class="s1">android:textStyle</span><span class="s3">=&quot;bold&quot; </span><span class="s2">/&gt;</span>
+
+            <span class="s2">&lt;</span><span class="s4">TextView</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;85dp&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;wrap_content&quot;</span>
+                <span class="s1">android:layout_marginLeft</span><span class="s3">=&quot;-10dp&quot;</span>
+                <span class="s1">android:text</span><span class="s3">=&quot;0.62m/s&quot;</span>
+                <span class="s1">android:textSize</span><span class="s3">=&quot;16dp&quot;</span>
+                <span class="s1">android:textStyle</span><span class="s3">=&quot;bold&quot; </span><span class="s2">/&gt;</span>
+
+        <span class="s2">&lt;/</span><span class="s4">LinearLayout</span><span class="s2">&gt;</span>
+
+        <span class="s2">&lt;</span><span class="s4">LinearLayout</span>
+            <span class="s1">android:layout_width</span><span class="s3">=&quot;0dp&quot;</span>
+            <span class="s1">android:layout_height</span><span class="s3">=&quot;0dp&quot;</span>
+            <span class="s1">android:layout_marginTop</span><span class="s3">=&quot;3dp&quot;</span>
+            <span class="s1">android:layout_weight</span><span class="s3">=&quot;1&quot;</span>
+            <span class="s1">android:gravity</span><span class="s3">=&quot;center&quot;</span>
+            <span class="s1">android:orientation</span><span class="s3">=&quot;horizontal&quot;</span><span class="s2">&gt;</span>
+
+            <span class="s2">&lt;</span><span class="s4">Button</span>
+                <span class="s1">android:id</span><span class="s3">=&quot;@+id/kongzhi&quot;</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;100dp&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;40dp&quot;</span>
+                <span class="s1">android:layout_marginRight</span><span class="s3">=&quot;20dp&quot;</span>
+                <span class="s1">android:background</span><span class="s3">=&quot;@drawable/mode_color&quot;</span>
+                <span class="s1">android:textColor</span><span class="s3">=&quot;@color/white&quot;</span>
+                <span class="s1">android:text</span><span class="s3">=&quot;控制模式&quot;</span><span class="s2">&gt;&lt;/</span><span class="s4">Button</span><span class="s2">&gt;</span>
+
+            <span class="s2">&lt;</span><span class="s4">Button</span>
+                <span class="s1">android:id</span><span class="s3">=&quot;@+id/yushe&quot;</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;100dp&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;40dp&quot;</span>
+                <span class="s1">android:background</span><span class="s3">=&quot;@drawable/mode_color&quot;</span>
+                <span class="s1">android:textColor</span><span class="s3">=&quot;@color/white&quot;</span>
+                <span class="s1">android:layout_marginRight</span><span class="s3">=&quot;20dp&quot;</span>
+                <span class="s1">android:text</span><span class="s3">=&quot;预设模式&quot;</span><span class="s2">&gt;&lt;/</span><span class="s4">Button</span><span class="s2">&gt;</span>
+        <span class="s2">&lt;/</span><span class="s4">LinearLayout</span><span class="s2">&gt;</span>
+
+        <span class="s2">&lt;</span><span class="s4">LinearLayout</span>
+            <span class="s1">android:layout_width</span><span class="s3">=&quot;0dp&quot;</span>
+            <span class="s1">android:layout_height</span><span class="s3">=&quot;0dp&quot;</span>
+            <span class="s1">android:layout_weight</span><span class="s3">=&quot;1&quot;</span>
+            <span class="s1">android:layout_marginTop</span><span class="s3">=&quot;3dp&quot;</span>
+            <span class="s1">android:gravity</span><span class="s3">=&quot;center&quot;</span>
+            <span class="s1">android:orientation</span><span class="s3">=&quot;horizontal&quot;</span><span class="s2">&gt;</span>
+
+            <span class="s2">&lt;</span><span class="s4">Button</span>
+                <span class="s1">android:id</span><span class="s3">=&quot;@+id/FRONT&quot;</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;75dp&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;40dp&quot;</span>
+                <span class="s1">android:background</span><span class="s3">=&quot;@color/grey&quot;</span>
+                <span class="s1">android:textColor</span><span class="s3">=&quot;@color/white&quot;</span>
+                <span class="s1">android:layout_marginRight</span><span class="s3">=&quot;15dp&quot;</span>
+                <span class="s1">android:text</span><span class="s3">=&quot;前进&quot;</span>
+                <span class="s1">android:enabled</span><span class="s3">=&quot;false&quot;</span><span class="s2">&gt;&lt;/</span><span class="s4">Button</span><span class="s2">&gt;</span>
+
+            <span class="s2">&lt;</span><span class="s4">Button</span>
+                <span class="s1">android:id</span><span class="s3">=&quot;@+id/STOP&quot;</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;75dp&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;40dp&quot;</span>
+                <span class="s1">android:background</span><span class="s3">=&quot;@color/grey&quot;</span>
+                <span class="s1">android:textColor</span><span class="s3">=&quot;@color/white&quot;</span>
+                <span class="s1">android:text</span><span class="s3">=&quot;停止&quot;</span>
+                <span class="s1">android:enabled</span><span class="s3">=&quot;false&quot;</span><span class="s2">&gt;&lt;/</span><span class="s4">Button</span><span class="s2">&gt;</span>
+
+            <span class="s2">&lt;</span><span class="s4">Button</span>
+                <span class="s1">android:id</span><span class="s3">=&quot;@+id/BACK&quot;</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;75dp&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;40dp&quot;</span>
+                <span class="s1">android:background</span><span class="s3">=&quot;@color/grey&quot;</span>
+                <span class="s1">android:textColor</span><span class="s3">=&quot;@color/white&quot;</span>
+                <span class="s1">android:layout_marginLeft</span><span class="s3">=&quot;15dp&quot;</span>
+                <span class="s1">android:text</span><span class="s3">=&quot;后退&quot;</span>
+                <span class="s1">android:enabled</span><span class="s3">=&quot;false&quot;</span><span class="s2">&gt;&lt;/</span><span class="s4">Button</span><span class="s2">&gt;</span>
+
+            <span class="s2">&lt;</span><span class="s4">Button</span>
+                <span class="s1">android:id</span><span class="s3">=&quot;@+id/RETURN&quot;</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;75dp&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;40dp&quot;</span>
+                <span class="s1">android:background</span><span class="s3">=&quot;@color/grey&quot;</span>
+                <span class="s1">android:textColor</span><span class="s3">=&quot;@color/white&quot;</span>
+                <span class="s1">android:layout_marginLeft</span><span class="s3">=&quot;15dp&quot;</span>
+                <span class="s1">android:text</span><span class="s3">=&quot;召回&quot;</span>
+                <span class="s1">android:enabled</span><span class="s3">=&quot;false&quot;</span><span class="s2">&gt;&lt;/</span><span class="s4">Button</span><span class="s2">&gt;</span>
+        <span class="s2">&lt;/</span><span class="s4">LinearLayout</span><span class="s2">&gt;</span>
+        <span class="s2">&lt;</span><span class="s4">LinearLayout</span>
+            <span class="s1">android:layout_width</span><span class="s3">=&quot;match_parent&quot;</span>
+            <span class="s1">android:layout_height</span><span class="s3">=&quot;wrap_content&quot;</span>
+            <span class="s1">android:layout_marginTop</span><span class="s3">=&quot;-45dp&quot;</span>
+            <span class="s1">android:gravity</span><span class="s3">=&quot;center&quot;</span>
+            <span class="s1">android:orientation</span><span class="s3">=&quot;horizontal&quot;</span><span class="s2">&gt;</span>
+
+            <span class="s2">&lt;</span><span class="s4">Button</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;75dp&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;40dp&quot;</span>
+                <span class="s1">android:textColor</span><span class="s3">=&quot;@color/black&quot;</span>
+                <span class="s1">android:layout_marginRight</span><span class="s3">=&quot;45dp&quot;</span>
+                <span class="s1">android:text</span><span class="s3">=&quot;FRONT&quot;</span>
+                <span class="s1">android:textStyle</span><span class="s3">=&quot;bold&quot;</span>
+                <span class="s1">android:enabled</span><span class="s3">=&quot;false&quot;</span><span class="s2">&gt;&lt;/</span><span class="s4">Button</span><span class="s2">&gt;</span>
+
+            <span class="s2">&lt;</span><span class="s4">Button</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;75dp&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;40dp&quot;</span>
+                <span class="s1">android:textColor</span><span class="s3">=&quot;@color/black&quot;</span>
+                <span class="s1">android:layout_marginRight</span><span class="s3">=&quot;45dp&quot;</span>
+                <span class="s1">android:text</span><span class="s3">=&quot;BACK&quot;</span>
+                <span class="s1">android:textStyle</span><span class="s3">=&quot;bold&quot;</span>
+                <span class="s1">android:enabled</span><span class="s3">=&quot;false&quot;</span><span class="s2">&gt;&lt;/</span><span class="s4">Button</span><span class="s2">&gt;</span>
+
+            <span class="s2">&lt;</span><span class="s4">Button</span>
+                <span class="s1">android:layout_width</span><span class="s3">=&quot;75dp&quot;</span>
+                <span class="s1">android:layout_height</span><span class="s3">=&quot;40dp&quot;</span>
+                <span class="s1">android:textColor</span><span class="s3">=&quot;@color/black&quot;</span>
+                <span class="s1">android:text</span><span class="s3">=&quot;STOP&quot;</span>
+                <span class="s1">android:textStyle</span><span class="s3">=&quot;bold&quot;</span>
+                <span class="s1">android:enabled</span><span class="s3">=&quot;false&quot;</span><span class="s2">&gt;&lt;/</span><span class="s4">Button</span><span class="s2">&gt;</span>
+
+
+        <span class="s2">&lt;/</span><span class="s4">LinearLayout</span><span class="s2">&gt;</span>
+
+        <span class="s2">&lt;</span><span class="s4">TextView</span>
+            <span class="s1">android:id</span><span class="s3">=&quot;@+id/tv_recv&quot;</span>
+            <span class="s1">android:layout_width</span><span class="s3">=&quot;match_parent&quot;</span>
+            <span class="s1">android:layout_height</span><span class="s3">=&quot;0dp&quot;</span>
+            <span class="s1">android:maxLines</span><span class="s3">=&quot;15&quot;</span>
+            <span class="s1">android:scrollbars</span><span class="s3">=&quot;vertical&quot;</span>
+            <span class="s1">android:singleLine</span><span class="s3">=&quot;false&quot; </span><span class="s2">/&gt;</span>
+
+    <span class="s2">&lt;/</span><span class="s4">LinearLayout</span><span class="s2">&gt;</span>
+
+
+<span class="s2">&lt;/</span><span class="s4">androidx.constraintlayout.widget.ConstraintLayout</span><span class="s2">&gt;</span></pre>
+</body>
+</html>

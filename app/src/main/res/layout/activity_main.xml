@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+    <include layout="@layout/title"></include>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginTop="35dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:text="山地果园单轨运输装备"
+                android:textColor="#8B4513"
+                android:textSize="18dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="-5dp"
+                android:gravity="center"
+                android:text="作业精准感知与智能调度系统"
+                android:textColor="#8B4513"
+                android:textSize="18dp" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="324dp"
+                android:layout_height="480dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/green3" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/tag12"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_below="@+id/tag11"
+                android:layout_marginLeft="160dp"
+                android:layout_marginTop="32dp"
+                android:backgroundTint="@color/red"
+                android:insetTop="0dp"
+                android:gravity="center"
+                android:insetBottom="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/white"
+                app:cornerRadius="12dp"
+                android:text="Tag12"
+                android:textColor="@color/white"
+                android:textSize="7dp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/tag11"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_below="@+id/tag10"
+                android:layout_marginLeft="190dp"
+                android:layout_marginTop="30dp"
+                android:backgroundTint="@color/red"
+                android:insetTop="0dp"
+                android:gravity="center"
+                android:insetBottom="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/white"
+                app:cornerRadius="12dp"
+                android:text="Tag11"
+                android:textColor="@color/white"
+                android:textSize="7dp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/tag10"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_below="@+id/tag9"
+                android:layout_marginLeft="190dp"
+                android:layout_marginTop="30dp"
+                android:backgroundTint="@color/red"
+                android:insetTop="0dp"
+                android:gravity="center"
+                android:insetBottom="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/white"
+                app:cornerRadius="12dp"
+                android:text="Tag10"
+                android:textColor="@color/white"
+                android:textSize="7dp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/tag9"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_below="@+id/tag8"
+                android:layout_marginLeft="190dp"
+                android:layout_marginTop="30dp"
+                android:backgroundTint="@color/red"
+                android:insetTop="0dp"
+                android:gravity="center"
+                android:insetBottom="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/white"
+                app:cornerRadius="12dp"
+                android:text="Tag9"
+                android:textColor="@color/white"
+                android:textSize="7dp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/tag8"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="190dp"
+                android:layout_marginTop="170dp"
+                android:backgroundTint="@color/red"
+                android:insetTop="0dp"
+                android:gravity="center"
+                android:insetBottom="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/white"
+                app:cornerRadius="12dp"
+                android:text="Tag8"
+                android:textColor="@color/white"
+                android:textSize="7dp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/tag7"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_above="@+id/tag8"
+                android:layout_marginLeft="190dp"
+                android:layout_marginBottom="-140dp"
+                android:backgroundTint="@color/red"
+                android:insetTop="0dp"
+                android:gravity="center"
+                android:insetBottom="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/white"
+                app:cornerRadius="12dp"
+                android:text="Tag7"
+                android:textColor="@color/white"
+                android:textSize="7dp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/tag3"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_above="@+id/tag7"
+                android:layout_marginLeft="190dp"
+                android:layout_marginBottom="30dp"
+                android:backgroundTint="@color/red"
+                android:insetTop="0dp"
+                android:gravity="center"
+                android:insetBottom="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/white"
+                app:cornerRadius="12dp"
+                android:text="Tag3"
+                android:textColor="@color/white"
+                android:textSize="7dp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/tag2"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_above="@+id/tag3"
+                android:layout_marginLeft="190dp"
+                android:layout_marginBottom="20dp"
+                android:backgroundTint="@color/red"
+                android:insetTop="0dp"
+                android:gravity="center"
+                android:insetBottom="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/white"
+                app:cornerRadius="12dp"
+                android:text="Tag2"
+                android:textColor="@color/white"
+                android:textSize="7dp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/tag1"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_above="@+id/tag2"
+                android:layout_marginLeft="190dp"
+                android:layout_marginBottom="20dp"
+                android:backgroundTint="@color/red"
+                android:insetTop="0dp"
+                android:gravity="center"
+                android:insetBottom="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/white"
+                app:cornerRadius="12dp"
+                android:text="Tag1"
+                android:textColor="@color/white"
+                android:textSize="7dp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/tag6"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_above="@+id/tag7"
+                android:layout_marginRight="-170dp"
+                android:layout_marginBottom="30dp"
+                android:layout_toLeftOf="@+id/tag7"
+                android:backgroundTint="@color/red"
+                android:insetTop="0dp"
+                android:gravity="center"
+                android:insetBottom="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/white"
+                app:cornerRadius="12dp"
+                android:text="Tag6"
+                android:textColor="@color/white"
+                android:textSize="7dp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/tag5"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_above="@+id/tag6"
+                android:layout_marginRight="-154dp"
+                android:layout_marginBottom="20dp"
+                android:layout_toLeftOf="@+id/tag9"
+                android:backgroundTint="@color/red"
+                android:insetTop="0dp"
+                android:gravity="center"
+                android:insetBottom="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/white"
+                app:cornerRadius="12dp"
+                android:text="Tag5"
+                android:textColor="@color/white"
+                android:textSize="7dp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/tag4"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_above="@+id/tag5"
+                android:layout_marginRight="-154dp"
+                android:layout_marginBottom="20dp"
+                android:layout_toLeftOf="@+id/tag9"
+                android:backgroundTint="@color/red"
+                android:insetTop="0dp"
+                android:gravity="center"
+                android:insetBottom="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/white"
+                app:cornerRadius="12dp"
+                android:text="Tag4"
+                android:textColor="@color/white"
+                android:textSize="7dp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="85dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="26dp"
+                android:text="工作模式："
+                android:textSize="16dp"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/d_mode"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="-6dp"
+                android:text=""
+                android:textSize="16dp"
+                android:textColor="@color/black"
+                />
+
+            <TextView
+                android:layout_width="85dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="距起始点："
+                android:textSize="16dp"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/d_distance"
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="-10dp"
+                android:text=""
+                android:textSize="16dp"
+                android:textColor="@color/black"
+                 />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="85dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="26dp"
+                android:text="装备状态："
+                android:textSize="16dp"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/d_status"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="-6dp"
+                android:text=""
+                android:textSize="16dp"
+                android:textColor="@color/black"
+                />
+
+
+            <TextView
+                android:layout_width="85dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="行驶速度："
+                android:textSize="16dp"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/d_speed"
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="-10dp"
+                android:text=""
+                android:textSize="16dp"
+                android:textColor="@color/black"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/kongzhi"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:layout_marginRight="80dp"
+                android:background="@drawable/mode_color"
+                android:textColor="@color/white"
+                android:text="控制模式"></Button>
+
+            <Button
+                android:id="@+id/yushe"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:background="@drawable/mode_color"
+                android:textColor="@color/white"
+                android:layout_marginRight="0dp"
+                android:text="预设模式"></Button>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginTop="3dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/FRONT"
+                android:layout_width="75dp"
+                android:layout_height="40dp"
+                android:background="@color/grey"
+                android:textColor="@color/white"
+                android:layout_marginRight="15dp"
+                android:text="前进"
+                android:enabled="false"></Button>
+
+            <Button
+                android:id="@+id/STOP"
+                android:layout_width="75dp"
+                android:layout_height="40dp"
+                android:background="@color/grey"
+                android:textColor="@color/white"
+                android:text="停止"
+                android:enabled="false"></Button>
+
+            <Button
+                android:id="@+id/BACK"
+                android:layout_width="75dp"
+                android:layout_height="40dp"
+                android:background="@color/grey"
+                android:textColor="@color/white"
+                android:layout_marginLeft="15dp"
+                android:text="后退"
+                android:enabled="false"></Button>
+
+            <Button
+                android:id="@+id/RETURN"
+                android:layout_width="75dp"
+                android:layout_height="40dp"
+                android:background="@color/grey"
+                android:textColor="@color/white"
+                android:layout_marginLeft="15dp"
+                android:text="召回"
+                android:enabled="false"></Button>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_recv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:maxLines="15"
+            android:scrollbars="vertical"
+            android:singleLine="false" />
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
