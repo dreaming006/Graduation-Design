@@ -76,7 +76,7 @@ u8 USART_RX_BUF[USART_REC_LEN];     //接收缓冲,最大USART_REC_LEN个字节.
 //bit14，	接收到0x0d
 //bit13~0，	接收到的有效字节数目
 u16 USART_RX_STA=0;       //接收状态标记	  
-extern unsigned char Addr_Local[2];
+extern unsigned char Addr_A[2];
 extern unsigned char Lora_Channel;
 void uart_init(u32 bound){
 
@@ -111,7 +111,7 @@ void uart_init(u32 bound){
 
   	//Usart1 NVIC 配置
   	NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=3 ;//抢占优先级3
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=2 ;//抢占优先级3
 	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 3;		//子优先级3
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;			//IRQ通道使能
 	NVIC_Init(&NVIC_InitStructure);	//根据指定的参数初始化VIC寄存器
@@ -133,7 +133,7 @@ void uart_init(u32 bound){
 
   	USART_Init(USART1, &USART_InitStructure); //初始化串口1
 
-	USART_InitStructure.USART_BaudRate = 115200;//串口波特率
+	USART_InitStructure.USART_BaudRate = bound;//串口波特率
 	USART_InitStructure.USART_WordLength = USART_WordLength_8b;//字长为8位数据格式
 	USART_InitStructure.USART_StopBits = USART_StopBits_1;//一个停止位
 	USART_InitStructure.USART_Parity = USART_Parity_No;//无奇偶校验位
@@ -142,9 +142,9 @@ void uart_init(u32 bound){
 	USART_Init(USART2, &USART_InitStructure); //初始化串口2
 
   	USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);//开启串口接受中断
-	USART_ITConfig(USART2, USART_IT_RXNE, ENABLE);
+	USART_ITConfig(USART2, USART_IT_RXNE, DISABLE);
   	USART_Cmd(USART1, ENABLE);                    //使能串口1
-	USART_Cmd(USART2, ENABLE);                    //使能串口2 
+	USART_Cmd(USART2, DISABLE);                    //使能串口2 
 
 }
 
@@ -176,7 +176,7 @@ void Usart_SendString( USART_TypeDef * pUSARTx, char *str)
 void USART1_IRQHandler(void)                	//串口1中断服务程序
 {
 	u8 Res;
-	static uint8_t state = 0;      // 当前接收数据的索引
+	static uint8_t index = 0;      // 当前接收数据的索引
 	static bool headerMatched = false; // 帧头是否匹配的标志
 #if SYSTEM_SUPPORT_OS 		//如果SYSTEM_SUPPORT_OS为真，则需要支持OS.
 	OSIntEnter();    
@@ -184,58 +184,51 @@ void USART1_IRQHandler(void)                	//串口1中断服务程序
 	if(USART_GetITStatus(USART1, USART_IT_RXNE) != RESET)  //接收中断(接收到的数据必须是0x0d 0x0a结尾)
 	{
 		Res =USART_ReceiveData(USART1);	//读取接收到的数据
-		Usart_SendByte(USART2,Res);
+		//Usart_SendByte(USART2,Res);
 
-		if((USART_RX_STA&0x8000)==0)//接收未完成
-		{
-			if(USART_RX_STA&0x4000)//接收到了0x0d
+		// 如果帧头还未匹配，检查是否匹配帧头
+        if (!headerMatched) {
+            if ( Res == Addr_A[index]) {
+                // 如果当前字节匹配帧头，继续接收下一个字节
+                index++;
+            } else if(index == 2&& Res == Lora_Channel) {
+				headerMatched = true;
+				index = 0;
+            } else {
+                // 如果帧头不匹配，重置索引
+                index = 0;
+            }
+        }
+		else{
+			if((USART_RX_STA&0x8000)==0)//接收未完成
 			{
-				if(Res!=0x0a)
-					USART_RX_STA=0;//接收错误,重新开始
-				else 
-					USART_RX_STA|=0x8000;	//接收完成了
-				
-				headerMatched = false; 
-			}
-			else //还没收到0X0D
-			{	
-				if(Res==0x0d)
-					USART_RX_STA|=0x4000;
-				else
+				if(USART_RX_STA&0x4000)//接收到了0x0d
 				{
-					//匹配包头
-					if(state==0&&!headerMatched){
-						if(Res==Addr_Local[0])
-							state++;
-						else
-							state=0;
-					}
-					else if(state==1){
-						if(Res==Addr_Local[1])
-							state++;
-						else
-							state=0;
-					}
-					else if(state==2){
-						if(Res==Lora_Channel){
-							headerMatched = true;
-							state = 0;
-						}
-						else
-							state=0;
-					}else if(headerMatched){
+					if(Res!=0x0a)
+						USART_RX_STA=0;//接收错误,重新开始
+					else 
+						USART_RX_STA|=0x8000;	//接收完成了
+					
+					headerMatched = false; 
+				}
+				else //还没收到0X0D
+				{	
+					if(Res==0x0d)
+						USART_RX_STA|=0x4000;
+					else
+					{
 						USART_RX_BUF[USART_RX_STA&0X3FFF]=Res ;
 						USART_RX_STA++;
 						if(USART_RX_STA>(USART_REC_LEN-1)){
 							USART_RX_STA=0;//接收数据错误,重新开始接收
 							headerMatched = false;
 						}
-	
-					}						
-  
-				}		 
+					}		 
+				}
 			}
-		}
+		} 
+		
+
 		
 
 		// 清除中断标志
@@ -253,14 +246,14 @@ void USART2_IRQHandler(void)                	//串口2中断服务程序
     if (USART_GetITStatus(USART2, USART_IT_RXNE) != RESET)
     {
         // 读取接收到的数据
-        received_data = USART_ReceiveData(USART2);
-		Usart_SendByte(USART1,received_data);
+        //received_data = USART_ReceiveData(USART2);
+		//Usart_SendByte(USART1,received_data);
         // 处理接收到的数据（例如，将数据存储到缓冲区）
         // 这里可以添加自定义的处理逻辑
         // 例如：将数据发送到另一个串口或存储到数组中
 
         // 清除中断标志
-        USART_ClearITPendingBit(USART1, USART_IT_RXNE);
+        //USART_ClearITPendingBit(USART2, USART_IT_RXNE);
     }
 
 }

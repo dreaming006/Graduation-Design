@@ -108,7 +108,7 @@ void TIM2_CLOSE()
 {
 	//TIM3->ARR=99;  	//设定计数器自动重装值 
 	//TIM3->PSC=7199;  	//预分频器设置
-	TIM_Cmd(TIM2, DISABLE);    //关闭定时器3
+	TIM_Cmd(TIM2, DISABLE);    //关闭定时器2
 }
 void TIM4_Int_Init(u16 arr,u16 psc)
 {

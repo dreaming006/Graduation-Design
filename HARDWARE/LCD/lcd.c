@@ -726,7 +726,7 @@ delay_ms(50); // delay 50 ms
 			}
  		}  	
 	}
- 	printf(" LCD ID:%x\r\n",lcddev.id); //打印LCD ID  
+ 	//printf(" LCD ID:%x\r\n",lcddev.id); //打印LCD ID  
 	if(lcddev.id==0X9341)	//9341初始化
 	{	 
 		LCD_WR_REG(0xCF);  

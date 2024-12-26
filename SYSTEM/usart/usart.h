@@ -34,8 +34,9 @@ extern u8  USART_RX_BUF[USART_REC_LEN]; //½ÓÊÕ»º³å,×î´óUSART_REC_LEN¸ö×Ö½Ú.Ä©×Ö½
 extern u16 USART_RX_STA;         		//½ÓÊÕ×´Ì¬±ê¼Ç	
 //Èç¹ûÏë´®¿ÚÖĞ¶Ï½ÓÊÕ£¬Çë²»Òª×¢ÊÍÒÔÏÂºê¶¨Òå
 void uart_init(u32 bound);
+void Usart_SendByte( USART_TypeDef * pUSARTx, uint8_t ch);
 void Usart_SendString( USART_TypeDef * pUSARTx, char *str);
-#define Log(str)    Usart_SendString(USART2,str)
+
 
 #endif
 
