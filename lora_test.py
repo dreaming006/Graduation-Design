@@ -58,7 +58,7 @@ class MQTT():
     def __init__(self,lora_service):
         self.client = None
         self.broker = "10wv1pa465244.vicp.fun"
-        self.port = 12562
+        self.port = 47727
         #self.broker = "192.168.137.34"
         #self.port = 1883
         self.keepalive = 60
@@ -143,11 +143,11 @@ class MQTT():
         formatted_time = self.PublishTime.strftime('%H:%M:%S.%f')[:-3]  # 截取到倒数第3位，得到毫秒
         print(f"Message published (mid: {mid})(time: {formatted_time})")
         print(f"RecvAppPackCnt:{RecvAppPackCnt} SendPackCnt:{SendPackCnt} RecvLoraAckCnt:{RecvLoraAckCnt} ")
-        print(f"Packet loss rate:{((SendPackCnt-RecvAppPackCnt)/SendPackCnt)*100:.2f}%")
+        print(f"Packet loss rate:{((SendPackCnt-RecvLoraAckCnt)/SendPackCnt)*100:.2f}%")
         if(response_flag == True):
             sum_time  = (sum_time + (self.PublishTime - self.RecvTime).total_seconds()*1000)
             Average_response_time = sum_time/float(RecvAppPackCnt)
-        print(f'Average response time:{Average_response_time:.2f}')
+            print(f'Current/Average :{(self.PublishTime - self.RecvTime).total_seconds()*1000:.2f}/{Average_response_time:.2f}')
         response_flag = False
         print()
     # 定义回调函数，当客户端断开连接时的回调
@@ -194,11 +194,11 @@ class LORA():
         global response_flag
         while True:
             self.recv_event.wait()
-            #print('recv_serial_info')
+            print('recv_serial_info')
             if handle.isOpen():
                 rsv_data = handle.readline()
                 if rsv_data != b'':
-                    #print(rsv_data)
+                    print(rsv_data)
                     if rsv_data[:3] == bytes(DeviceAddr_List['A']+LoraChan):        #判断数据来自哪个车
                         rsv_data = rsv_data[3:].decode('UTF-8')[:-2]
                         current_time = datetime.now()
