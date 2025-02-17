@@ -5,10 +5,46 @@ import time
 from queue import Queue
 from datetime import datetime, timedelta
 
+class CoDelQueue:
+    def __init__(self, max_size, target_delay=0.2, interval=0.1):
+        self.queue = []
+        self.max_size = max_size
+        self.target_delay = target_delay  # 目标延迟，单位秒
+        self.interval = interval  # 检查间隔，单位秒
+        self.last_drop_time = time.time()
+        self.drop_next = self.last_drop_time
 
-LoraControlCmd_Q = Queue(10)
+    def enqueue(self, item):
+        if len(self.queue) >= self.max_size:
+            self.drop()
+            return False
+        self.queue.append((item, time.time()))
+        return True
 
-DataUploadCmd_Q = Queue(10)
+    def dequeue(self):
+        if not self.queue:
+            return None
+        item, enqueue_time = self.queue.pop(0)
+        current_time = time.time()
+        sojourn_time = current_time - enqueue_time
+        if sojourn_time > self.target_delay:
+            self.drop()
+            return None
+        return item
+
+    def drop(self):
+        current_time = time.time()
+        if current_time >= self.drop_next:
+            self.last_drop_time = current_time
+            self.drop_next = current_time + self.interval
+            if self.queue:
+                self.queue.pop(0)
+
+    def empty(self):
+        return len(self.queue) == 0
+
+LoraControlCmd_Q = CoDelQueue(10)
+DataUploadCmd_Q = CoDelQueue(10)
 
 DeviceAddr_List ={
     "A": [0X02,0XCA],
@@ -58,7 +94,8 @@ class MQTT():
     def __init__(self,lora_service):
         self.client = None
         self.broker = "10wv1pa465244.vicp.fun"
-        self.port = 47727
+        self.port = 24725
+        #self.port = 18219
         #self.broker = "192.168.137.34"
         #self.port = 1883
         self.keepalive = 60
@@ -69,8 +106,6 @@ class MQTT():
         self.lora_service = lora_service 
         self.RecvTime = datetime.now()
         self.PublishTime = datetime.now()
- 
-        # 当客户端收到服务器的CONNACK响应时的回调
     def Start_MQTT_Service(self):
         #try:
             self.client = mqtt.Client()
@@ -107,7 +142,7 @@ class MQTT():
         device = RecvMsg[0]
         addr = DeviceAddr_List[device] + LoraChan    #根据设备和信道生成地址
         if RecvMsg[1:3]=="00":  
-            DataUploadCmd_Q.put(addr+DataUploadCmd+end)
+            DataUploadCmd_Q.enqueue(addr+DataUploadCmd+end)
         else:    
             if RecvMsg[1:4] == "tag":                                       #预设目标标签       
                 target_label = RecvMsg[4:6]
@@ -126,7 +161,7 @@ class MQTT():
             for i in range(len(ControlCmd)):
                 data.append(int(ControlCmd[i],base=16)+48)                
             msgtolora = addr + data + end    
-            LoraControlCmd_Q.put(msgtolora)
+            LoraControlCmd_Q.enqueue(msgtolora)
 
         data.clear()
         RecvAppPackCnt += 1
@@ -194,7 +229,7 @@ class LORA():
         global response_flag
         while True:
             self.recv_event.wait()
-            print('recv_serial_info')
+            #print('recv_serial_info')
             if handle.isOpen():
                 rsv_data = handle.readline()
                 if rsv_data != b'':
@@ -236,7 +271,7 @@ class LORA():
                     current_time = datetime.now()
                     if (current_time - self.DataUploadCmdSendTime).total_seconds()*1000 > 200 or self.recv_dataupload_ack.is_set():
                         if not LoraControlCmd_Q.empty():
-                            LoraControlCmd = LoraControlCmd_Q.get()                   
+                            LoraControlCmd = LoraControlCmd_Q.dequeue()                   
                             try:
                                 handle.write(LoraControlCmd)
                                 SendPackCnt += 1
@@ -269,7 +304,7 @@ class LORA():
 
                 if self.recv_dataupload_ack.is_set():
                     if not DataUploadCmd_Q.empty() :    
-                        DataUploadCmd = DataUploadCmd_Q.get()
+                        DataUploadCmd = DataUploadCmd_Q.dequeue()
                         try:
                             handle.write(DataUploadCmd)
                             SendPackCnt += 1
