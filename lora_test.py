@@ -56,19 +56,6 @@ class CoDelQueue:
 
         # 更新下一次丢包检查时间
         self.next_drop_time += self.interval/math.sqrt(self.drop_count)
-    def getcmd(self):
-        if not self.queue:
-            return None
-        item, enqueue_time = self.queue.pop(0)
-        current_time = time.time()
-        sojourn_time = current_time - enqueue_time
-        if sojourn_time > self.target_delay:
-            print(f'{item} is dropped')
-            return None
-        else: 
-            self.enqueue_time.append(enqueue_time)
-            return item
-
     def gettime(self):
         enqueue_time = self.enqueue_time.pop(0)
         return enqueue_time
