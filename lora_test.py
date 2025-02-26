@@ -411,20 +411,7 @@ class LORA(TCPVegas):
                             else:
                                 print('DataUploadCmd is dropped')
                                 
-                    else:
-                        current_time = datetime.now()
-                        timediff = (current_time - self.DataUploadCmdSendTime).total_seconds()
-                        if timediff > 1 and self.DataUploadCmdResend_cnt < 2:
-                            handle.write(DataUploadCmd)
-                            self.DataUploadCmdSendTime = datetime.now()
-                            self.DataUploadCmdResend_cnt += 1
-                            formatted_time = self.DataUploadCmdSendTime.strftime('%m-%d %H:%M:%S.%f')[:-3]  # 截取到倒数第3位，得到毫秒
-                            #print(f'ReSend Data Upload Cmd:{DataUploadCmd}(time:{formatted_time})')
-                            print(f'ReSend Data Upload Cmd(time:{formatted_time})')
-                        elif self.DataUploadCmdResend_cnt == 2:
-                            self.DataUploadCmdResend_cnt = 0
-                            self.recv_dataupload_ack.set()
-                            DataUploadCmd_Q.deltime()
+                    
                         
                 self.send_event.clear()
                 self.recv_event.set()
