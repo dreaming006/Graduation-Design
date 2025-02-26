@@ -2,6 +2,7 @@ import threading
 import serial
 import paho.mqtt.client as mqtt
 import time
+import math
 from queue import Queue
 from datetime import datetime, timedelta
 
@@ -12,8 +13,8 @@ class CoDelQueue:
         self.max_size = max_size
         self.target_delay = target_delay  # 目标延迟，单位秒
         self.interval = interval  # 检查间隔，单位秒
-        self.last_drop_time = time.time()
-        self.drop_next = self.last_drop_time
+        self.drop_count = 0
+        self.next_drop_time = time.time()
 
     def enqueue(self, item):
         if len(self.queue) >= self.max_size:
@@ -22,6 +23,39 @@ class CoDelQueue:
         self.queue.append((item, time.time()))
         return True
 
+    def dequeue(self):
+        """
+        数据包出队，并检查是否需要丢包。
+        :return: 出队的数据包（如果未被丢弃）。
+        """
+        now = time.time()
+
+        # 检查是否到达丢包检查时间
+        if now >= self.next_drop_time:
+            self.check_drop(now)
+
+        # 出队第一个数据包
+        if self.queue:
+            item, enqueue_time = self.queue.pop(0)
+            self.enqueue_time.append(enqueue_time)
+            return item
+        
+        return None
+    def check_drop(self, now):
+        enqueue_time = self.queue[0][1]
+        sojourn_time = now - enqueue_time
+
+        # 如果停留时间超过目标延迟，触发丢包
+        if sojourn_time > self.target_delay:
+            self.drop_count += 1
+            print(f"Drop pack(cnt:{self.drop_count})")
+            # 丢弃队列中的一个数据包
+            if self.queue:
+                self.queue.pop(0)
+                print(f"Stay time: {sojourn_time:.6f}")
+
+        # 更新下一次丢包检查时间
+        self.next_drop_time += self.interval/math.sqrt(self.drop_count)
     def getcmd(self):
         if not self.queue:
             return None
@@ -29,7 +63,7 @@ class CoDelQueue:
         current_time = time.time()
         sojourn_time = current_time - enqueue_time
         if sojourn_time > self.target_delay:
-            #self.drop()
+            print(f'{item} is dropped')
             return None
         else: 
             self.enqueue_time.append(enqueue_time)
@@ -38,14 +72,10 @@ class CoDelQueue:
     def gettime(self):
         enqueue_time = self.enqueue_time.pop(0)
         return enqueue_time
-    def drop(self):
-        current_time = time.time()
-        if current_time >= self.drop_next:
-            self.last_drop_time = current_time
-            self.drop_next = current_time + self.interval
-            if self.queue:
-                self.queue.pop(0)
 
+    def deltime(self):
+        self.enqueue_time.pop(0)
+        return
     def empty(self):
         return len(self.queue) == 0
 
@@ -110,7 +140,7 @@ class TCPVegas:
         # RTT 更新
         self.current_rtt = rtt
         self.min_rtt = min(self.min_rtt, rtt)
-        print(f'current_rtt:{self.current_rtt} min_rtt:{self.min_rtt}')
+        #print(f'current_rtt:{self.current_rtt} min_rtt:{self.min_rtt}')
     def adjust_cwnd(self):
         if self.min_rtt is None or self.current_rtt is None:
             return
@@ -127,7 +157,7 @@ class TCPVegas:
         elif diff > self.beta:
             self.cwnd -= 1  # 网络拥塞，减少 cwnd
         # 如果 alpha <= diff <= beta，保持 cwnd 不变
-        print(f'cwnd:{self.cwnd}')
+        #print(f'cwnd:{self.cwnd}')
 
 class MQTT():
     def __init__(self,lora_service,TCPVegas):
@@ -207,7 +237,7 @@ class MQTT():
         RecvAppPackCnt += 1
         #self.RecvTime.append(datetime.now())
         self.lora_service.send_event.set()
-        formatted_time = datetime.now().strftime('%H:%M:%S.%f')[:-3]  # 截取到倒数第3位，得到毫秒
+        formatted_time = datetime.now().strftime('%m-%d %H:%M:%S.%f')[:-3]  # 截取到倒数第3位，得到毫秒
         print(f"Recv msg from APP:{msg.payload.decode()[0:-2]}(time: {formatted_time})")
     # 定义回调函数，当客户端发布消息成功时的回调
     def on_publish(self,client, userdata, mid):
@@ -216,7 +246,7 @@ class MQTT():
         global recv_ctrolcmd
         global recv_datauploadcmd
         self.PublishTime = time.time()
-        formatted_time = datetime.now().strftime('%H:%M:%S.%f')[:-3]  # 截取到倒数第3位，得到毫秒
+        formatted_time = datetime.now().strftime('%m-%d %H:%M:%S.%f')[:-3]  # 截取到倒数第3位，得到毫秒
         print(f"Message published (mid: {mid})(time: {formatted_time})")
         print(f"RecvAppPackCnt:{RecvAppPackCnt} SendPackCnt:{SendPackCnt} RecvLoraAckCnt:{RecvLoraAckCnt} ")
         print(f"Packet loss rate:{((SendPackCnt-RecvLoraAckCnt)/SendPackCnt)*100:.2f}%")
@@ -281,11 +311,10 @@ class LORA(TCPVegas):
             if handle.isOpen():
                 rsv_data = handle.readline()
                 if rsv_data != b'':
-                    print(rsv_data)
+                    #print(rsv_data)
                     if rsv_data[:3] == bytes(DeviceAddr_List['A']+LoraChan):        #判断数据来自哪个车
                         rsv_data = rsv_data[3:].decode('UTF-8')[:-2]
-                        current_time = datetime.now()
-                        formatted_time = current_time.strftime('%H:%M:%S.%f')[:-3]  # 截取到倒数第3位，得到毫秒
+                        formatted_time = datetime.now().strftime('%m-%d %H:%M:%S.%f')[:-3]  # 截取到倒数第3位，得到毫秒
                         print(f'Recv from Lora A:{rsv_data}(time:{formatted_time})')
                         self.current_label = rsv_data[5:7]
                         LoraAckData = rsv_data[:5]
@@ -305,7 +334,7 @@ class LORA(TCPVegas):
                             recv_ctrolcmd = False
                             recv_datauploadcmd = False
                         self.mqtt_service.client.publish(self.mqtt_service.PUB_TOPIC, rsv_data)
-                        current_time = datetime.now()
+                        
                         
             else:
                 self.connectflag = False
@@ -323,15 +352,16 @@ class LORA(TCPVegas):
                         current_time = datetime.now()
                         if (current_time - self.DataUploadCmdSendTime).total_seconds()*1000 > 200 or self.recv_dataupload_ack.is_set():
                             if not LoraControlCmd_Q.empty():
-                                LoraControlCmd = LoraControlCmd_Q.getcmd()                   
+                                LoraControlCmd = LoraControlCmd_Q.dequeue()                   
                                 if LoraControlCmd != None:
                                     try:
                                         handle.write(LoraControlCmd)
                                         SendPackCnt += 1
                                         self.packets_unacked += 1
                                         self.ControlCmdSendTime = datetime.now()
-                                        formatted_time = self.ControlCmdSendTime.strftime('%H:%M:%S.%f')[:-3]  # 截取到倒数第3位，得到毫秒
-                                        print(f'Lora Control Cmd send :{LoraControlCmd}(time:{formatted_time})')
+                                        formatted_time = self.ControlCmdSendTime.strftime('%m-%d %H:%M:%S.%f')[:-3]  # 截取到倒数第3位，得到毫秒
+                                        #print(f'Lora Control Cmd send :{LoraControlCmd}(time:{formatted_time})')
+                                        print(f'Lora Control Cmd send(time:{formatted_time})')
                                         self.recv_control_ack.clear()
                                         self.send_event.clear()
                                         self.recv_event.set()
@@ -339,7 +369,7 @@ class LORA(TCPVegas):
                                     except Exception as e:
                                             print(f'Serial wirte error:{e}')
                                 else:
-                                    print('LoraControlCmd is dropped')
+                                    #print('LoraControlCmd is dropped')
                                     continue
                     else:
                         current_time = datetime.now()
@@ -348,12 +378,14 @@ class LORA(TCPVegas):
                             handle.write(LoraControlCmd)
                             self.ControlCmdSendTime = datetime.now()
                             self.ControlCmdResend_cnt += 1
-                            formatted_time = self.ControlCmdSendTime.strftime('%H:%M:%S.%f')[:-3]  # 截取到倒数第3位，得到毫秒
-                            print(f'ReSend Control Cmd:{LoraControlCmd}(time:{formatted_time})')
-
-                        if self.ControlCmdResend_cnt == 2:
+                            formatted_time = self.ControlCmdSendTime.strftime('%m-%d %H:%M:%S.%f')[:-3]  # 截取到倒数第3位，得到毫秒
+                            #print(f'ReSend Control Cmd:{LoraControlCmd}(time:{formatted_time})')
+                            print(f'ReSend Control Cmd(time:{formatted_time})')
+                        elif self.ControlCmdResend_cnt == 2:
                             self.ControlCmdResend_cnt = 0
                             self.recv_control_ack.set()
+                            LoraControlCmd_Q.deltime()                  
+                            
                             
                         self.send_event.clear()
                         self.recv_event.set()
@@ -363,18 +395,22 @@ class LORA(TCPVegas):
                 if self.packets_unacked < self.TCPVegas.cwnd:
                     if self.recv_dataupload_ack.is_set():
                         if not DataUploadCmd_Q.empty() :    
-                            DataUploadCmd = DataUploadCmd_Q.getcmd()
-                            try:
-                                handle.write(DataUploadCmd)
-                                SendPackCnt += 1
-                                self.packets_unacked += 1    
-                                self.DataUploadCmdSendTime = datetime.now()
-                                formatted_time = self.DataUploadCmdSendTime.strftime('%H:%M:%S.%f')[:-3]  # 截取到倒数第3位，得到毫秒
-                                print(f'Data Upload Cmd send :{DataUploadCmd}(time:{formatted_time})')
-                                self.recv_dataupload_ack.clear()
-                            except Exception as e:
-                                    print(f'Serial wirte error:{e}')
-
+                            DataUploadCmd = DataUploadCmd_Q.dequeue()
+                            if DataUploadCmd != None:
+                                try:
+                                    handle.write(DataUploadCmd)
+                                    SendPackCnt += 1
+                                    self.packets_unacked += 1    
+                                    self.DataUploadCmdSendTime = datetime.now()
+                                    formatted_time = self.DataUploadCmdSendTime.strftime('%m-%d %H:%M:%S.%f')[:-3]  # 截取到倒数第3位，得到毫秒
+                                    #print(f'Data Upload Cmd send :{DataUploadCmd}(time:{formatted_time})')
+                                    print(f'Data Upload Cmd send(time:{formatted_time})')
+                                    self.recv_dataupload_ack.clear()
+                                except Exception as e:
+                                        print(f'Serial wirte error:{e}')
+                            else:
+                                print('DataUploadCmd is dropped')
+                                
                     else:
                         current_time = datetime.now()
                         timediff = (current_time - self.DataUploadCmdSendTime).total_seconds()
@@ -382,12 +418,13 @@ class LORA(TCPVegas):
                             handle.write(DataUploadCmd)
                             self.DataUploadCmdSendTime = datetime.now()
                             self.DataUploadCmdResend_cnt += 1
-                            formatted_time = self.DataUploadCmdSendTime.strftime('%H:%M:%S.%f')[:-3]  # 截取到倒数第3位，得到毫秒
-                            print(f'ReSend Data Upload Cmd:{DataUploadCmd}(time:{formatted_time})')
-
-                        if self.DataUploadCmdResend_cnt == 2:
+                            formatted_time = self.DataUploadCmdSendTime.strftime('%m-%d %H:%M:%S.%f')[:-3]  # 截取到倒数第3位，得到毫秒
+                            #print(f'ReSend Data Upload Cmd:{DataUploadCmd}(time:{formatted_time})')
+                            print(f'ReSend Data Upload Cmd(time:{formatted_time})')
+                        elif self.DataUploadCmdResend_cnt == 2:
                             self.DataUploadCmdResend_cnt = 0
                             self.recv_dataupload_ack.set()
+                            DataUploadCmd_Q.deltime()
                         
                 self.send_event.clear()
                 self.recv_event.set()
