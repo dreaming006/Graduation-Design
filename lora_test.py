@@ -18,7 +18,6 @@ class CoDelQueue:
 
     def enqueue(self, item):
         if len(self.queue) >= self.max_size:
-            self.drop()
             return False
         self.queue.append((item, time.time()))
         return True
@@ -44,7 +43,7 @@ class CoDelQueue:
     def check_drop(self, now):
         enqueue_time = self.queue[0][1]
         sojourn_time = now - enqueue_time
-
+        current_time = time.time()
         # 如果停留时间超过目标延迟，触发丢包
         if sojourn_time > self.target_delay:
             self.drop_count += 1
@@ -53,9 +52,11 @@ class CoDelQueue:
             if self.queue:
                 self.queue.pop(0)
                 print(f"Stay time: {sojourn_time:.6f}")
-
-        # 更新下一次丢包检查时间
-        self.next_drop_time += self.interval/math.sqrt(self.drop_count)
+            
+            # 丢包时改变检查间隔
+            self.next_drop_time = current_time +self.interval/math.sqrt(self.drop_count)
+        
+        self.next_drop_time = current_time +self.interval
     def gettime(self):
         enqueue_time = self.enqueue_time.pop(0)
         return enqueue_time
@@ -298,7 +299,7 @@ class LORA(TCPVegas):
             if handle.isOpen():
                 rsv_data = handle.readline()
                 if rsv_data != b'':
-                    #print(rsv_data)
+                    print(rsv_data)
                     if rsv_data[:3] == bytes(DeviceAddr_List['A']+LoraChan):        #判断数据来自哪个车
                         rsv_data = rsv_data[3:].decode('UTF-8')[:-2]
                         formatted_time = datetime.now().strftime('%m-%d %H:%M:%S.%f')[:-3]  # 截取到倒数第3位，得到毫秒
@@ -368,8 +369,9 @@ class LORA(TCPVegas):
                             formatted_time = self.ControlCmdSendTime.strftime('%m-%d %H:%M:%S.%f')[:-3]  # 截取到倒数第3位，得到毫秒
                             #print(f'ReSend Control Cmd:{LoraControlCmd}(time:{formatted_time})')
                             print(f'ReSend Control Cmd(time:{formatted_time})')
-                        elif self.ControlCmdResend_cnt == 2:
+                        elif self.ControlCmdResend_cnt == 2 and timediff > 1:
                             self.ControlCmdResend_cnt = 0
+                            self.packets_unacked -= 1
                             self.recv_control_ack.set()
                             LoraControlCmd_Q.deltime()                  
                             
@@ -379,27 +381,30 @@ class LORA(TCPVegas):
                         continue 
 
                 
-                if self.packets_unacked < self.TCPVegas.cwnd:
-                    if self.recv_dataupload_ack.is_set():
-                        if not DataUploadCmd_Q.empty() :    
-                            DataUploadCmd = DataUploadCmd_Q.dequeue()
-                            if DataUploadCmd != None:
-                                try:
-                                    handle.write(DataUploadCmd)
-                                    SendPackCnt += 1
-                                    self.packets_unacked += 1    
-                                    self.DataUploadCmdSendTime = datetime.now()
-                                    formatted_time = self.DataUploadCmdSendTime.strftime('%m-%d %H:%M:%S.%f')[:-3]  # 截取到倒数第3位，得到毫秒
-                                    #print(f'Data Upload Cmd send :{DataUploadCmd}(time:{formatted_time})')
-                                    print(f'Data Upload Cmd send(time:{formatted_time})')
-                                    self.recv_dataupload_ack.clear()
-                                except Exception as e:
-                                        print(f'Serial wirte error:{e}')
-                            else:
-                                print('DataUploadCmd is dropped')
-                                
-                    
-                        
+                
+                if self.recv_dataupload_ack.is_set():
+                    if not DataUploadCmd_Q.empty() and self.packets_unacked < self.TCPVegas.cwnd:   
+                        DataUploadCmd = DataUploadCmd_Q.dequeue()
+                        if DataUploadCmd != None:
+                            try:
+                                handle.write(DataUploadCmd)
+                                SendPackCnt += 1
+                                self.packets_unacked += 1    
+                                self.DataUploadCmdSendTime = datetime.now()
+                                formatted_time = self.DataUploadCmdSendTime.strftime('%m-%d %H:%M:%S.%f')[:-3]  # 截取到倒数第3位，得到毫秒
+                                #print(f'Data Upload Cmd send :{DataUploadCmd}(time:{formatted_time})')
+                                print(f'Data Upload Cmd send(time:{formatted_time})')
+                                self.recv_dataupload_ack.clear()
+                            except Exception as e:
+                                    print(f'Serial wirte error:{e}')                     
+                else:
+                    current_time = datetime.now()
+                    timediff = (current_time - self.DataUploadCmdSendTime).total_seconds()
+                    if timediff > 1:
+                        self.recv_dataupload_ack.set()
+                        self.packets_unacked -= 1
+                        DataUploadCmd_Q.deltime()            
+          
                 self.send_event.clear()
                 self.recv_event.set()
             else:
