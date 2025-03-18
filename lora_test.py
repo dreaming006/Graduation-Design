@@ -455,15 +455,12 @@ class LORA(TCPVegas):
         t2 = threading.Thread(target = self.send_serial_info, args=(self.Serial_port,))
         t1.start()
         t2.start()
+        print('Lora Service Started')
         
 TCPVegas = TCPVegas()
 MQTT_Service = MQTT(None,TCPVegas) 
 LORA_Service = LORA(MQTT_Service,TCPVegas)
 MQTT_Service.lora_service = LORA_Service
 
-
-Lora_Process = threading.Thread(target=LORA_Service.Start_Lora_Service,args=())
-MQTT_Process = threading.Thread(target=MQTT_Service.Start_MQTT_Service,args=())
-
-Lora_Process.start()
-MQTT_Process.start()
+LORA_Service.Start_Lora_Service()
+MQTT_Service.Start_MQTT_Service()
